@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>【你的名字】| 個人作品集</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0d1117;
+      --bg-secondary: #161b22;
+      --bg-card: #1c2128;
+      --bg-code: #0a0e14;
+      --border: #30363d;
+      --text-primary: #e6edf3;
+      --text-secondary: #8b949e;
+      --accent: #58a6ff;
+      --accent-glow: rgba(88, 166, 255, 0.15);
+      --green: #3fb950;
+      --orange: #d29922;
+      --purple: #bc8cff;
+      --pink: #f778ba;
+      --cyan: #79c0ff;
+      --radius: 12px;
+      --radius-lg: 16px;
+      --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      --transition: 0.25s ease;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* Background gradient mesh */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 50% at 20% -10%, rgba(88, 166, 255, 0.12), transparent),
+        radial-gradient(ellipse 60% 40% at 80% 100%, rgba(188, 140, 255, 0.08), transparent);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+
+    /* ── Header / Hero ── */
+    header {
+      padding: 4rem 0 3rem;
+      text-align: center;
+    }
+
+    .avatar {
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--purple));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #fff;
+      box-shadow: 0 0 40px var(--accent-glow);
+    }
+
+    header h1 {
+      font-size: clamp(1.75rem, 5vw, 2.5rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
+
+    header h1 span {
+      background: linear-gradient(90deg, var(--accent), var(--purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .intro {
+      font-size: clamp(1rem, 2.5vw, 1.125rem);
+      color: var(--text-secondary);
+      max-width: 540px;
+      margin: 0 auto 1.5rem;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: center;
+    }
+
+    .tag {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      color: var(--accent);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+    }
+
+    /* ── Section shared ── */
+    section {
+      margin-bottom: 3rem;
+    }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    .section-title {
+      font-size: clamp(1.25rem, 3vw, 1.5rem);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-desc {
+      color: var(--text-secondary);
+      font-size: 0.9375rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: border-color var(--transition);
+    }
+
+    .card:hover {
+      border-color: rgba(88, 166, 255, 0.35);
+    }
+
+    /* ── Code block ── */
+    .code-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 1rem;
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .code-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .code-dots span {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .code-dots span:nth-child(1) { background: #ff5f57; }
+    .code-dots span:nth-child(2) { background: #febc2e; }
+    .code-dots span:nth-child(3) { background: #28c840; }
+
+    .code-filename {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+    }
+
+    .code-body {
+      padding: 1.25rem 1rem;
+      overflow-x: auto;
+      background: var(--bg-code);
+    }
+
+    .code-body pre {
+      font-family: 'JetBrains Mono', 'Fira Code', monospace;
+      font-size: clamp(0.72rem, 2vw, 0.8125rem);
+      line-height: 1.7;
+      tab-size: 4;
+    }
+
+    .code-body code {
+      display: block;
+      white-space: pre;
+    }
+
+    /* Syntax highlighting */
+    .kw  { color: #ff7b72; }   /* keywords */
+    .fn  { color: #d2a8ff; }   /* functions */
+    .str { color: #a5d6ff; }   /* strings */
+    .cm  { color: #8b949e; font-style: italic; } /* comments */
+    .var { color: #ffa657; }   /* variables */
+    .num { color: #79c0ff; }   /* numbers */
+    .op  { color: #ff7b72; }   /* operators */
+    .cls { color: #ffa657; }   /* class names */
+    .dec { color: #79c0ff; }   /* decorators */
+
+    /* ── Image project ── */
+    .project-image-wrap {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      background: var(--bg-secondary);
+    }
+
+    .project-image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .card:hover .project-image-wrap img {
+      transform: scale(1.03);
+    }
+
+    .project-caption {
+      padding: 1.25rem 1.5rem;
+    }
+
+    .project-caption h3 {
+      font-size: 1.0625rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+
+    .project-caption p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.75rem;
+    }
+
+    .badge {
+      font-size: 0.7rem;
+      font-weight: 500;
+      padding: 0.2rem 0.6rem;
+      border-radius: 6px;
+      background: rgba(88, 166, 255, 0.1);
+      color: var(--cyan);
+      border: 1px solid rgba(88, 166, 255, 0.2);
+    }
+
+    /* ── Video embed ── */
+    .video-wrap {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      background: #000;
+    }
+
+    .video-wrap iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .video-caption {
+      padding: 1.25rem 1.5rem;
+    }
+
+    .video-caption h3 {
+      font-size: 1.0625rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+
+    .video-caption p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 2rem 0 3rem;
+      color: var(--text-secondary);
+      font-size: 0.8125rem;
+      border-top: 1px solid var(--border);
+      margin-top: 1rem;
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* ── Scroll reveal animation ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      header {
+        padding: 2.5rem 0 2rem;
+      }
+
+      .avatar {
+        width: 72px;
+        height: 72px;
+        font-size: 1.6rem;
+      }
+
+      .code-body {
+        padding: 1rem 0.75rem;
+      }
+
+      .project-caption,
+      .video-caption {
+        padding: 1rem 1.15rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- Hero -->
+    <header>
+      <div class="avatar">你</div>
+      <h1><span>【你的名字】</span></h1>
+      <p class="intro">
+        高中生 · 程式愛好者<br>
+        我會寫 <strong>Python</strong> 與 <strong>資料分析</strong>，喜歡用程式解決生活中的問題。
+      </p>
+      <div class="tags">
+        <span class="tag">Python</span>
+        <span class="tag">資料分析</span>
+        <span class="tag">Web Scraping</span>
+        <span class="tag">Pandas</span>
+      </div>
+    </header>
+
+    <!-- Project 1: Python Code -->
+    <section class="reveal" id="project-code">
+      <div class="section-label">專案展示 01</div>
+      <h2 class="section-title">Rotten Tomatoes 電影評分爬蟲</h2>
+      <p class="section-desc">使用 Python 的 requests 與 BeautifulSoup 爬取爛番茄電影評分，並整理成結構化資料。</p>
+
+      <div class="card">
+        <div class="code-header">
+          <div class="code-dots">
+            <span></span><span></span><span></span>
+          </div>
+          <span class="code-filename">rotten_tomatoes_scraper.py</span>
+        </div>
+        <div class="code-body">
+          <pre><code><span class="cm"># Rotten Tomatoes 電影評分爬蟲範例</span>
+<span class="kw">import</span> requests
+<span class="kw">from</span> bs4 <span class="kw">import</span> BeautifulSoup
+<span class="kw">import</span> pandas <span class="kw">as</span> pd
+
+<span class="fn">def</span> <span class="fn">fetch_movie_score</span>(movie_slug: <span class="cls">str</span>) -> <span class="cls">dict</span>:
+    <span class="str">"""從 Rotten Tomatoes 取得電影評分"""</span>
+    url = <span class="str">f"https://www.rottentomatoes.com/m/{movie_slug}"</span>
+    headers = {
+        <span class="str">"User-Agent"</span>: <span class="str">"Mozilla/5.0 (Educational Project)"</span>
+    }
+
+    response = requests.<span class="fn">get</span>(url, headers=headers, timeout=<span class="num">10</span>)
+    response.<span class="fn">raise_for_status</span>()
+
+    soup = BeautifulSoup(response.text, <span class="str">"html.parser"</span>)
+
+    title_el = soup.<span class="fn">select_one</span>(<span class="str">"h1"</span>)
+    score_el = soup.<span class="fn">select_one</span>(<span class="str">"[data-qa='tomatometer']"</span>)
+
+    <span class="kw">return</span> {
+        <span class="str">"title"</span>: title_el.<span class="fn">get_text</span>(strip=<span class="kw">True</span>) <span class="kw">if</span> title_el <span class="kw">else</span> <span class="str">"N/A"</span>,
+        <span class="str">"tomatometer"</span>: score_el.<span class="fn">get_text</span>(strip=<span class="kw">True</span>) <span class="kw">if</span> score_el <span class="kw">else</span> <span class="str">"N/A"</span>,
+        <span class="str">"url"</span>: url,
+    }
+
+<span class="kw">if</span> __name__ == <span class="str">"__main__"</span>:
+    movies = [<span class="str">"dune_2021"</span>, <span class="str">"spider_man_no_way_home"</span>, <span class="str">"everything_everywhere_all_at_once"</span>]
+    results = []
+
+    <span class="kw">for</span> slug <span class="kw">in</span> movies:
+        data = <span class="fn">fetch_movie_score</span>(slug)
+        results.<span class="fn">append</span>(data)
+        <span class="fn">print</span>(<span class="str">f"✓ {data['title']}: {data['tomatometer']}"</span>)
+
+    df = pd.<span class="fn">DataFrame</span>(results)
+    df.<span class="fn">to_csv</span>(<span class="str">"rotten_tomatoes_scores.csv"</span>, index=<span class="kw">False</span>)
+    <span class="fn">print</span>(<span class="str">"\n已儲存至 rotten_tomatoes_scores.csv"</span>)</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Project 2: Image & Results -->
+    <section class="reveal" id="project-image">
+      <div class="section-label">專案展示 02</div>
+      <h2 class="section-title">資料分析實驗結果</h2>
+      <p class="section-desc">將爬蟲取得的電影評分資料進行視覺化分析，探索評分分布與趨勢。</p>
+
+      <div class="card">
+        <div class="project-image-wrap">
+          <img
+            src="https://picsum.photos/seed/movie-analysis/960/540"
+            alt="電影評分資料分析實驗結果截圖（測試用假圖）"
+            loading="lazy"
+            width="960"
+            height="540"
+          >
+        </div>
+        <div class="project-caption">
+          <h3>電影評分分布圖表</h3>
+          <p>
+            使用 Pandas 與 Matplotlib 將 Rotten Tomatoes 爬蟲資料繪製成長條圖，
+            比較多部電影的 Tomatometer 評分。此處為測試用假圖，正式上線時可替換為你的專案截圖。
+          </p>
+          <div class="badge-row">
+            <span class="badge">Pandas</span>
+            <span class="badge">Matplotlib</span>
+            <span class="badge">Data Visualization</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Project 3: YouTube Video -->
+    <section class="reveal" id="project-video">
+      <div class="section-label">專案展示 03</div>
+      <h2 class="section-title">實作演示影片</h2>
+      <p class="section-desc">錄製專案從爬蟲到資料分析的完整操作流程，方便展示給老師或評審。</p>
+
+      <div class="card">
+        <div class="video-wrap">
+          <iframe
+            src="https://www.youtube.com/embed/rfscVS0vtbw"
+            title="Python 教學影片（範例）"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+            loading="lazy"
+          ></iframe>
+        </div>
+        <div class="video-caption">
+          <h3>Python 完整教學 — 程式演示</h3>
+          <p>
+            上方嵌入的是公開的 Python 教學影片（freeCodeCamp），作為 iframe 範例。
+            你可以將 <code style="color:var(--cyan);font-size:0.85em;">src</code> 替換成自己錄製的 YouTube 影片連結。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>© 2026 【你的名字】 · 個人作品集</p>
+      <p style="margin-top:0.4rem;">
+        Built with HTML · CSS · JavaScript
+      </p>
+    </footer>
+
+  </div>
+
+  <script>
+    // Scroll reveal animation
+    const reveals = document.querySelectorAll('.reveal');
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+    );
+
+    reveals.forEach((el, i) => {
+      el.style.transitionDelay = `${i * 0.1}s`;
+      observer.observe(el);
+    });
+  </script>
+
+</body>
+</html>
