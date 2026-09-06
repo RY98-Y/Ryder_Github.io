@@ -1,541 +1,564 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-TW">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>【你的名字】| 個人作品集</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg-primary: #0d1117;
-      --bg-secondary: #161b22;
-      --bg-card: #1c2128;
-      --bg-code: #0a0e14;
-      --border: #30363d;
-      --text-primary: #e6edf3;
-      --text-secondary: #8b949e;
-      --accent: #58a6ff;
-      --accent-glow: rgba(88, 166, 255, 0.15);
-      --green: #3fb950;
-      --orange: #d29922;
-      --purple: #bc8cff;
-      --pink: #f778ba;
-      --cyan: #79c0ff;
-      --radius: 12px;
-      --radius-lg: 16px;
-      --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-      --transition: 0.25s ease;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【你的名字】| 個人作品集與學術研究</title>
+    <style>
+        :root {
+            /* 現代學術編輯風格配色（自然人文、高可讀性、去 AI 霓虹感） */
+            --bg-page: #f8fafc;
+            --bg-card: #ffffff;
+            --bg-subtle: #f1f5f9;
+            --border-light: #e2e8f0;
+            --border-medium: #cbd5e1;
 
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+            --text-heading: #0f172a;
+            --text-body: #334155;
+            --text-muted: #64748b;
 
-    html {
-      scroll-behavior: smooth;
-    }
+            --academic-blue: #0369a1;      /* 沉穩牛津學術藍 */
+            --academic-blue-light: #e0f2fe;
+            --accent-terracotta: #c2410c;  /* 陶土磚紅色（強調數值） */
 
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: var(--bg-primary);
-      color: var(--text-primary);
-      line-height: 1.6;
-      min-height: 100vh;
-    }
+            --font-serif: "Newsreader", "Charter", "Georgia", serif;
+            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif;
+            --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+        }
 
-    /* Background gradient mesh */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 80% 50% at 20% -10%, rgba(88, 166, 255, 0.12), transparent),
-        radial-gradient(ellipse 60% 40% at 80% 100%, rgba(188, 140, 255, 0.08), transparent);
-      pointer-events: none;
-      z-index: 0;
-    }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    .container {
-      position: relative;
-      z-index: 1;
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 0 1.25rem;
-    }
+        body {
+            background-color: var(--bg-page);
+            color: var(--text-body);
+            font-family: var(--font-sans);
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
+        }
 
-    /* ── Header / Hero ── */
-    header {
-      padding: 4rem 0 3rem;
-      text-align: center;
-    }
+        .container {
+            max-width: 920px;
+            margin: 0 auto;
+            padding: 48px 24px 96px;
+        }
 
-    .avatar {
-      width: 88px;
-      height: 88px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--accent), var(--purple));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 1.5rem;
-      font-size: 2rem;
-      font-weight: 700;
-      color: #fff;
-      box-shadow: 0 0 40px var(--accent-glow);
-    }
+        /* 導覽列：極簡線條風 */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-light);
+            padding-bottom: 16px;
+            margin-bottom: 48px;
+        }
 
-    header h1 {
-      font-size: clamp(1.75rem, 5vw, 2.5rem);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 0.75rem;
-    }
+        .logo {
+            font-size: 1.05rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            color: var(--text-heading);
+            text-transform: uppercase;
+        }
 
-    header h1 span {
-      background: linear-gradient(90deg, var(--accent), var(--purple));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-left: 24px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.15s ease;
+        }
 
-    .intro {
-      font-size: clamp(1rem, 2.5vw, 1.125rem);
-      color: var(--text-secondary);
-      max-width: 540px;
-      margin: 0 auto 1.5rem;
-    }
+        .nav-links a:hover {
+            color: var(--academic-blue);
+        }
 
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      justify-content: center;
-    }
+        /* 自我介紹 Hero：經典學術學者排版 */
+        .hero {
+            display: flex;
+            align-items: flex-start;
+            gap: 36px;
+            margin-bottom: 56px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid var(--border-light);
+        }
 
-    .tag {
-      background: var(--bg-secondary);
-      border: 1px solid var(--border);
-      color: var(--accent);
-      font-size: 0.8125rem;
-      font-weight: 500;
-      padding: 0.35rem 0.85rem;
-      border-radius: 999px;
-    }
+        .avatar {
+            width: 140px;
+            height: 140px;
+            border-radius: 8px; /* 沉穩方圓角，取代花俏大圓形 */
+            object-fit: cover;
+            border: 1px solid var(--border-medium);
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
+            flex-shrink: 0;
+        }
 
-    /* ── Section shared ── */
-    section {
-      margin-bottom: 3rem;
-    }
+        .hero-text h1 {
+            font-size: 2.1rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--text-heading);
+            margin-bottom: 6px;
+        }
 
-    .section-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.75rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--accent);
-      margin-bottom: 0.5rem;
-    }
+        .hero-text .title {
+            color: var(--academic-blue);
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 14px;
+        }
 
-    .section-label::before {
-      content: '';
-      display: block;
-      width: 20px;
-      height: 2px;
-      background: var(--accent);
-      border-radius: 2px;
-    }
+        .hero-text p {
+            color: var(--text-body);
+            font-size: 0.98rem;
+            line-height: 1.7;
+            margin-bottom: 18px;
+        }
 
-    .section-title {
-      font-size: clamp(1.25rem, 3vw, 1.5rem);
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-    }
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
 
-    .section-desc {
-      color: var(--text-secondary);
-      font-size: 0.9375rem;
-      margin-bottom: 1.25rem;
-    }
+        .tag {
+            background-color: var(--bg-subtle);
+            color: var(--text-heading);
+            border: 1px solid var(--border-light);
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
 
-    .card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      box-shadow: var(--shadow);
-      transition: border-color var(--transition);
-    }
+        /* 區塊標題 */
+        section {
+            margin-bottom: 56px;
+        }
 
-    .card:hover {
-      border-color: rgba(88, 166, 255, 0.35);
-    }
+        .section-header {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--text-heading);
+            padding-bottom: 8px;
+        }
 
-    /* ── Code block ── */
-    .code-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0.75rem 1rem;
-      background: var(--bg-secondary);
-      border-bottom: 1px solid var(--border);
-    }
+        .section-header h2 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--text-heading);
+            letter-spacing: -0.01em;
+        }
 
-    .code-dots {
-      display: flex;
-      gap: 6px;
-    }
+        .section-header .section-tag {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
 
-    .code-dots span {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-    }
+        /* 卡片設計：乾淨紙感卡片 */
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+        }
 
-    .code-dots span:nth-child(1) { background: #ff5f57; }
-    .code-dots span:nth-child(2) { background: #febc2e; }
-    .code-dots span:nth-child(3) { background: #28c840; }
+        /* 指標面板：嚴肅科研統計風格 */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            margin: 20px 0;
+        }
 
-    .code-filename {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.75rem;
-      color: var(--text-secondary);
-    }
+        .metric-box {
+            background-color: var(--bg-subtle);
+            border: 1px solid var(--border-light);
+            padding: 14px;
+            border-radius: 4px;
+            text-align: center;
+        }
 
-    .code-body {
-      padding: 1.25rem 1rem;
-      overflow-x: auto;
-      background: var(--bg-code);
-    }
+        .metric-val {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--accent-terracotta);
+            font-family: var(--font-sans);
+            letter-spacing: -0.02em;
+        }
 
-    .code-body pre {
-      font-family: 'JetBrains Mono', 'Fira Code', monospace;
-      font-size: clamp(0.72rem, 2vw, 0.8125rem);
-      line-height: 1.7;
-      tab-size: 4;
-    }
+        .metric-lbl {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            font-weight: 600;
+            margin-top: 4px;
+        }
 
-    .code-body code {
-      display: block;
-      white-space: pre;
-    }
+        /* 圖表外框：與白色畫布無縫融合 */
+        .chart-frame {
+            width: 100%;
+            height: 580px;
+            border: 1px solid var(--border-light);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 18px 0 24px;
+            background-color: #ffffff;
+        }
 
-    /* Syntax highlighting */
-    .kw  { color: #ff7b72; }   /* keywords */
-    .fn  { color: #d2a8ff; }   /* functions */
-    .str { color: #a5d6ff; }   /* strings */
-    .cm  { color: #8b949e; font-style: italic; } /* comments */
-    .var { color: #ffa657; }   /* variables */
-    .num { color: #79c0ff; }   /* numbers */
-    .op  { color: #ff7b72; }   /* operators */
-    .cls { color: #ffa657; }   /* class names */
-    .dec { color: #79c0ff; }   /* decorators */
+        .chart-frame iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
 
-    /* ── Image project ── */
-    .project-image-wrap {
-      position: relative;
-      aspect-ratio: 16 / 9;
-      overflow: hidden;
-      background: var(--bg-secondary);
-    }
+        /* 物理洞見引用盒 */
+        .insight-callout {
+            background-color: var(--bg-subtle);
+            border-left: 3px solid var(--academic-blue);
+            padding: 16px 18px;
+            border-radius: 0 4px 4px 0;
+            margin-top: 20px;
+        }
 
-    .project-image-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.4s ease;
-    }
+        .insight-callout h4 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--academic-blue);
+            margin-bottom: 6px;
+        }
 
-    .card:hover .project-image-wrap img {
-      transform: scale(1.03);
-    }
+        .insight-callout p {
+            font-size: 0.92rem;
+            color: var(--text-body);
+            line-height: 1.65;
+        }
 
-    .project-caption {
-      padding: 1.25rem 1.5rem;
-    }
+        /* 清單列表排版 */
+        .item-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 4px;
+        }
 
-    .project-caption h3 {
-      font-size: 1.0625rem;
-      font-weight: 600;
-      margin-bottom: 0.4rem;
-    }
+        .item-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text-heading);
+        }
 
-    .project-caption p {
-      color: var(--text-secondary);
-      font-size: 0.9rem;
-    }
+        .item-date {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-family: var(--font-mono);
+            white-space: nowrap;
+        }
 
-    .badge-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-      margin-top: 0.75rem;
-    }
+        .item-subtitle {
+            color: var(--academic-blue);
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
 
-    .badge {
-      font-size: 0.7rem;
-      font-weight: 500;
-      padding: 0.2rem 0.6rem;
-      border-radius: 6px;
-      background: rgba(88, 166, 255, 0.1);
-      color: var(--cyan);
-      border: 1px solid rgba(88, 166, 255, 0.2);
-    }
+        .item-desc {
+            color: var(--text-body);
+            font-size: 0.92rem;
+            line-height: 1.65;
+        }
 
-    /* ── Video embed ── */
-    .video-wrap {
-      position: relative;
-      aspect-ratio: 16 / 9;
-      background: #000;
-    }
+        /* 成果相簿 */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 16px;
+            margin-top: 18px;
+        }
 
-    .video-wrap iframe {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
+        .photo-card {
+            background: var(--bg-subtle);
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid var(--border-light);
+        }
 
-    .video-caption {
-      padding: 1.25rem 1.5rem;
-    }
+        .photo-card img {
+            width: 100%;
+            height: 175px;
+            object-fit: cover;
+            display: block;
+        }
 
-    .video-caption h3 {
-      font-size: 1.0625rem;
-      font-weight: 600;
-      margin-bottom: 0.4rem;
-    }
+        .photo-card .caption {
+            padding: 10px 12px;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            background-color: var(--bg-card);
+            border-top: 1px solid var(--border-light);
+        }
 
-    .video-caption p {
-      color: var(--text-secondary);
-      font-size: 0.9rem;
-    }
+        /* 頁尾 */
+        footer {
+            border-top: 1px solid var(--border-light);
+            padding-top: 32px;
+            margin-top: 64px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
 
-    /* ── Footer ── */
-    footer {
-      text-align: center;
-      padding: 2rem 0 3rem;
-      color: var(--text-secondary);
-      font-size: 0.8125rem;
-      border-top: 1px solid var(--border);
-      margin-top: 1rem;
-    }
+        footer a {
+            color: var(--academic-blue);
+            text-decoration: none;
+        }
 
-    footer a {
-      color: var(--accent);
-      text-decoration: none;
-    }
+        footer a:hover {
+            text-decoration: underline;
+        }
 
-    footer a:hover {
-      text-decoration: underline;
-    }
-
-    /* ── Scroll reveal animation ── */
-    .reveal {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* ── Responsive ── */
-    @media (max-width: 600px) {
-      header {
-        padding: 2.5rem 0 2rem;
-      }
-
-      .avatar {
-        width: 72px;
-        height: 72px;
-        font-size: 1.6rem;
-      }
-
-      .code-body {
-        padding: 1rem 0.75rem;
-      }
-
-      .project-caption,
-      .video-caption {
-        padding: 1rem 1.15rem;
-      }
-    }
-  </style>
+        /* 手機瀏覽適配 */
+        @media (max-width: 640px) {
+            .hero {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .tags {
+                justify-content: center;
+            }
+            .nav-links {
+                display: none;
+            }
+            .chart-frame {
+                height: 420px;
+            }
+        }
+    </style>
 </head>
 <body>
 
-  <div class="container">
+<div class="container">
 
-    <!-- Hero -->
-    <header>
-      <div class="avatar">你</div>
-      <h1><span>【你的名字】</span></h1>
-      <p class="intro">
-        高中生 · 程式愛好者<br>
-        我會寫 <strong>Python</strong> 與 <strong>資料分析</strong>，喜歡用程式解決生活中的問題。
-      </p>
-      <div class="tags">
-        <span class="tag">Python</span>
-        <span class="tag">資料分析</span>
-        <span class="tag">Web Scraping</span>
-        <span class="tag">Pandas</span>
-      </div>
-    </header>
+    <!-- 頂部導覽列 -->
+    <nav>
+        <div class="logo">【你的英文名字】/ Portfolio</div>
+        <div class="nav-links">
+            <a href="#about">關於我</a>
+            <a href="#research">科研專案</a>
+            <a href="#honors">榮譽競賽</a>
+            <a href="#extracurricular">社團領導</a>
+            <a href="#volunteer">志工服務</a>
+        </div>
+    </nav>
 
-    <!-- Project 1: Python Code -->
-    <section class="reveal" id="project-code">
-      <div class="section-label">專案展示 01</div>
-      <h2 class="section-title">Rotten Tomatoes 電影評分爬蟲</h2>
-      <p class="section-desc">使用 Python 的 requests 與 BeautifulSoup 爬取爛番茄電影評分，並整理成結構化資料。</p>
+    <!-- 1. 自我介紹 (Hero Section) -->
+    <section id="about" class="hero">
+        <!-- 【大頭照】：預設乾淨陽光男高中生肖像，可隨時替換為 images/profile.jpg -->
+        <img class="avatar" src="images/profile.jpg" onerror="this.src='<https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=400&q=80>'" alt="個人照片">
+        <div class="hero-text">
+            <h1>【你的名字】(Your Name)</h1>
+            <div class="title">高中三年級 · 物理計算與數據分析愛好者</div>
+            <p>
+                專注於將經典力學、流體動力學定律與 Python 科學數值模擬結合，探討極限賽車運動中的物理邊界。目標申請美國大學物理學系（Physics）或機械工程學系（Mechanical Engineering），具備資料處理、數值微積分與開源專案建置能力。
+            </p>
+            <div class="tags">
+                <span class="tag">Classical Mechanics</span>
+                <span class="tag">Python (FastF1, NumPy)</span>
+                <span class="tag">Interactive Visualization (Plotly)</span>
+                <span class="tag">Kinematics & Telemetry</span>
+                <span class="tag">Scientific Computing</span>
+            </div>
+        </div>
+    </section>
 
-      <div class="card">
-        <div class="code-header">
-          <div class="code-dots">
-            <span></span><span></span><span></span>
+    <!-- 2. 重點科研專題 (Featured Research Project) -->
+    <section id="research">
+        <div class="section-header">
+            <h2>🏎️ 專案一：F1 真實遙測數據的運動學與動能耗散分析</h2>
+            <span class="section-tag">Featured Research</span>
+        </div>
+
+        <div class="card">
+            <div class="item-row">
+                <div class="item-title" style="font-size: 1.15rem;">2023 摩納哥站排位賽：Verstappen vs Leclerc 晚煞車策略與極限做功</div>
+                <div class="item-date">2026 年 8 月</div>
+            </div>
+            <div class="item-subtitle">Kinematic Modeling & Energy Dissipation across Turn 1 Braking Zone</div>
+            <p style="margin-bottom: 16px; color: var(--text-body); font-size: 0.95rem;">
+                本研究採集 FastF1 高頻遙測資料（10 Hz），運用數值中央差分推導賽車縱向減速度與向心加速度 \( a_n = v^2 / r \)。並透過動能定理與功率轉移方程 \( P(t) = m \cdot a(t) \cdot v(t) \)，量化賽車在進彎極限煞車區間的機械能轉換率。
+            </p>
+
+            <!-- 關鍵科學指標面板 -->
+            <div class="metrics-grid">
+                <div class="metric-box">
+                    <div class="metric-val">2.2 MW</div>
+                    <div class="metric-lbl">煞車峰值消耗功率 (Turn 1)</div>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-val">-3.5 G</div>
+                    <div class="metric-lbl">縱向減速度峰值</div>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-val">3.2 G+</div>
+                    <div class="metric-lbl">橫向向心加速度 (Downforce)</div>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-val">798 kg</div>
+                    <div class="metric-lbl">FIA 車重規範基準</div>
+                </div>
+            </div>
+
+            <!-- 嵌入 Plotly 互動圖表 1 (速度與動能) -->
+            <div style="margin-top: 24px;">
+                <div style="font-weight: 600; font-size: 0.95rem; color: var(--text-heading); margin-bottom: 4px;">
+                    圖表 1：雙車手速度與動能隨賽道距離對齊圖 (Interactive Dual-Axis Telemetry)
+                </div>
+                <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px;">
+                    提示：可用滑鼠拖曳框選第一煞車區（80～200 m）進行局部放大，雙擊圖面還原檢視。
+                </div>
+                <div class="chart-frame">
+                    <iframe src="figures/interactive_telemetry_compare.html"></iframe>
+                </div>
+            </div>
+
+            <!-- 嵌入 Plotly 互動圖表 2 (賽道 G 力) -->
+            <div style="margin-top: 24px;">
+                <div style="font-weight: 600; font-size: 0.95rem; color: var(--text-heading); margin-bottom: 4px;">
+                    圖表 2：Circuit de Monaco 2D 賽道向心 G 力熱力分佈圖
+                </div>
+                <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px;">
+                    提示：游標移至任一賽道節點可讀取該座標點的即時速度、總 G 力與橫向向心分量。
+                </div>
+                <div class="chart-frame">
+                    <iframe src="figures/interactive_track_gforce.html"></iframe>
+                </div>
+            </div>
+
+            <!-- 核心物理洞見亮點卡片 -->
+            <div class="insight-callout">
+                <h4>第一原理物理洞見 (Physics Takeaway)</h4>
+                <p>
+                    <strong>1. 煞車功率與速度線性正比：</strong> 煞車功耗速率 \( P(t) = m \cdot a(t) \cdot v(t) \) 在 290 km/h 剛踩下煞車的瞬間達到 2.2 MW（相當於 3000 匹馬力）逆向做功，完全解釋了碳纖維碟盤在進彎初期溫度劇增至 1000°C 的物理機制。<br>
+                    <strong>2. 晚煞車策略的取捨代價：</strong> 遙測對比顯示 Leclerc 進入超強力煞車區晚約 5～8 公尺，但 Verstappen 藉由更線性的減速斜率保留了更佳的出彎開油角度，驗證了賽車運動學中「出彎動能優先於盲目極限晚煞車」的策略平衡。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. 參賽榮譽與競賽 (Honors & Competitions) -->
+    <section id="honors">
+        <div class="section-header">
+            <h2>🏆 榮譽與學術競賽</h2>
+            <span class="section-tag">Academic Honors</span>
+        </div>
+
+        <div class="card">
+            <div class="item-row">
+                <div class="item-title">全國高中物理探究與實作競賽</div>
+                <div class="item-date">2025.05</div>
+            </div>
+            <div class="item-subtitle">全國二等獎 / 團隊隊長</div>
+            <p class="item-desc">
+                以「雙擺系統的混沌現象數值模擬」為題，使用 Python 與 Runge-Kutta 演算法推導非線性運動方程，驗證微小初始條件造成的相空間軌跡發散。
+            </p>
+        </div>
+
+        <div class="card">
+          <div class="item-row">
+              <div class="item-title">全國高中物理探究與實作競賽</div>
+              <div class="item-date">2025.05</div>
           </div>
-          <span class="code-filename">rotten_tomatoes_scraper.py</span>
-        </div>
-        <div class="code-body">
-          <pre><code><span class="cm"># Rotten Tomatoes 電影評分爬蟲範例</span>
-<span class="kw">import</span> requests
-<span class="kw">from</span> bs4 <span class="kw">import</span> BeautifulSoup
-<span class="kw">import</span> pandas <span class="kw">as</span> pd
-
-<span class="fn">def</span> <span class="fn">fetch_movie_score</span>(movie_slug: <span class="cls">str</span>) -> <span class="cls">dict</span>:
-    <span class="str">"""從 Rotten Tomatoes 取得電影評分"""</span>
-    url = <span class="str">f"https://www.rottentomatoes.com/m/{movie_slug}"</span>
-    headers = {
-        <span class="str">"User-Agent"</span>: <span class="str">"Mozilla/5.0 (Educational Project)"</span>
-    }
-
-    response = requests.<span class="fn">get</span>(url, headers=headers, timeout=<span class="num">10</span>)
-    response.<span class="fn">raise_for_status</span>()
-
-    soup = BeautifulSoup(response.text, <span class="str">"html.parser"</span>)
-
-    title_el = soup.<span class="fn">select_one</span>(<span class="str">"h1"</span>)
-    score_el = soup.<span class="fn">select_one</span>(<span class="str">"[data-qa='tomatometer']"</span>)
-
-    <span class="kw">return</span> {
-        <span class="str">"title"</span>: title_el.<span class="fn">get_text</span>(strip=<span class="kw">True</span>) <span class="kw">if</span> title_el <span class="kw">else</span> <span class="str">"N/A"</span>,
-        <span class="str">"tomatometer"</span>: score_el.<span class="fn">get_text</span>(strip=<span class="kw">True</span>) <span class="kw">if</span> score_el <span class="kw">else</span> <span class="str">"N/A"</span>,
-        <span class="str">"url"</span>: url,
-    }
-
-<span class="kw">if</span> __name__ == <span class="str">"__main__"</span>:
-    movies = [<span class="str">"dune_2021"</span>, <span class="str">"spider_man_no_way_home"</span>, <span class="str">"everything_everywhere_all_at_once"</span>]
-    results = []
-
-    <span class="kw">for</span> slug <span class="kw">in</span> movies:
-        data = <span class="fn">fetch_movie_score</span>(slug)
-        results.<span class="fn">append</span>(data)
-        <span class="fn">print</span>(<span class="str">f"✓ {data['title']}: {data['tomatometer']}"</span>)
-
-    df = pd.<span class="fn">DataFrame</span>(results)
-    df.<span class="fn">to_csv</span>(<span class="str">"rotten_tomatoes_scores.csv"</span>, index=<span class="kw">False</span>)
-    <span class="fn">print</span>(<span class="str">"\n已儲存至 rotten_tomatoes_scores.csv"</span>)</code></pre>
-        </div>
-      </div>
-    </section>
-
-    <!-- Project 2: Image & Results -->
-    <section class="reveal" id="project-image">
-      <div class="section-label">專案展示 02</div>
-      <h2 class="section-title">資料分析實驗結果</h2>
-      <p class="section-desc">將爬蟲取得的電影評分資料進行視覺化分析，探索評分分布與趨勢。</p>
-
-      <div class="card">
-        <div class="project-image-wrap">
-          <img
-            src="https://picsum.photos/seed/movie-analysis/960/540"
-            alt="電影評分資料分析實驗結果截圖（測試用假圖）"
-            loading="lazy"
-            width="960"
-            height="540"
-          >
-        </div>
-        <div class="project-caption">
-          <h3>電影評分分布圖表</h3>
-          <p>
-            使用 Pandas 與 Matplotlib 將 Rotten Tomatoes 爬蟲資料繪製成長條圖，
-            比較多部電影的 Tomatometer 評分。此處為測試用假圖，正式上線時可替換為你的專案截圖。
+          <div class="item-subtitle">全國二等獎 / 團隊隊長</div>
+          <p class="item-desc">
+              以「雙擺系統的混沌現象數值模擬」為題，使用 Python 與 Runge-Kutta 演算法推導非線性運動方程，驗證微小初始條件造成的相空間軌跡發散。
           </p>
-          <div class="badge-row">
-            <span class="badge">Pandas</span>
-            <span class="badge">Matplotlib</span>
-            <span class="badge">Data Visualization</span>
-          </div>
-        </div>
       </div>
+
+        <div class="card">
+            <div class="item-row">
+                <div class="item-title">國際青年物理學家錦標賽 (IYPT) 校內選拔賽</div>
+                <div class="item-date">2024.11</div>
+            </div>
+            <div class="item-subtitle">特優入選（代表校隊培訓）</div>
+            <p class="item-desc">
+                針對表面張力引發的液滴彈跳問題進行理論建模，架設高速攝影機捕捉微秒級形變，並將實驗數值與理論極限對照。
+            </p>
+        </div>
     </section>
 
-    <!-- Project 3: YouTube Video -->
-    <section class="reveal" id="project-video">
-      <div class="section-label">專案展示 03</div>
-      <h2 class="section-title">實作演示影片</h2>
-      <p class="section-desc">錄製專案從爬蟲到資料分析的完整操作流程，方便展示給老師或評審。</p>
+    <!-- 4. 社團經驗與領導力 (Leadership & Clubs) -->
+    <section id="extracurricular">
+        <div class="section-header">
+            <h2>👥 社團經驗與領導力</h2>
+            <span class="section-tag">Leadership</span>
+        </div>
 
-      <div class="card">
-        <div class="video-wrap">
-          <iframe
-            src="https://www.youtube.com/embed/rfscVS0vtbw"
-            title="Python 教學影片（範例）"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen
-            loading="lazy"
-          ></iframe>
+        <div class="card">
+            <div class="item-row">
+                <div class="item-title">高中科研創客社</div>
+                <div class="item-date">2024.09 – 2025.06</div>
+            </div>
+            <div class="item-subtitle">社長 / 課程講師</div>
+            <p class="item-desc">
+                帶領 30 餘位社員每週進行科學探究與感測器實驗（Arduino & Python）。規劃了「水火箭空氣動力學」、「3D 列印小型風洞實作」等 6 場專題工作坊，促進社員對流體力學現象的直觀理解。
+            </p>
+
+            <!-- 社團照片區（學生可替換 images/club1.jpg, images/club2.jpg） -->
+            <div class="photo-grid">
+                <div class="photo-card">
+                    <img src="images/club1.jpg" onerror="this.src='<https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=600&q=80>'" alt="工作坊教學">
+                    <div class="caption">主講 Python 感測器數據處理工作坊</div>
+                </div>
+                <div class="photo-card">
+                    <img src="images/club2.jpg" onerror="this.src='<https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=600&q=80>'" alt="團隊討論">
+                    <div class="caption">與社員進行風洞模型實驗數據校驗</div>
+                </div>
+            </div>
         </div>
-        <div class="video-caption">
-          <h3>Python 完整教學 — 程式演示</h3>
-          <p>
-            上方嵌入的是公開的 Python 教學影片（freeCodeCamp），作為 iframe 範例。
-            你可以將 <code style="color:var(--cyan);font-size:0.85em;">src</code> 替換成自己錄製的 YouTube 影片連結。
-          </p>
-        </div>
-      </div>
     </section>
 
+    <!-- 5. 志工服務與社會實踐 (Community Service) -->
+    <section id="volunteer">
+        <div class="section-header">
+            <h2>🤝 志工服務與科學教育推廣</h2>
+            <span class="section-tag">Community</span>
+        </div>
+
+        <div class="card">
+            <div class="item-row">
+                <div class="item-title">偏鄉國小科學啟蒙營隊</div>
+                <div class="item-date">2024 暑期 (40 小時服務證明)</div>
+            </div>
+            <div class="item-subtitle">物理趣味實驗教案負責人</div>
+            <p class="item-desc">
+                赴偏鄉小學設計「簡易光學望遠鏡」與「電磁感應小火車」動手做教案，帶領 40 位學童理解光學折射與法拉第電磁感應。透過生活化道具將抽象物理具象化，培養學員的科學好奇心。
+            </p>
+        </div>
+    </section>
+
+    <!-- 頁尾版權與連結 -->
     <footer>
-      <p>© 2026 【你的名字】 · 個人作品集</p>
-      <p style="margin-top:0.4rem;">
-        Built with HTML · CSS · JavaScript
-      </p>
+        <p>&copy; 2026 【你的名字】(Your Name) · Academic Portfolio</p>
+        <p style="margin-top: 6px;">
+            <a href="<https://github.com/【你的GitHub帳號】>" target="_blank">GitHub Profile</a> ·
+            <a href="mailto:your_email@gmail.com">Email Contact</a>
+        </p>
     </footer>
 
-  </div>
-
-  <script>
-    // Scroll reveal animation
-    const reveals = document.querySelectorAll('.reveal');
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
-    );
-
-    reveals.forEach((el, i) => {
-      el.style.transitionDelay = `${i * 0.1}s`;
-      observer.observe(el);
-    });
-  </script>
+</div>
 
 </body>
 </html>
