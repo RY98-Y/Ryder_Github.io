@@ -1,564 +1,1825 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>【你的名字】| 個人作品集與學術研究</title>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your Name | Physics Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <meta
+      name="description"
+      content="High-school physics portfolio: F1 telemetry kinematics and a straight-line DRS model. Numbers appear only with their assumptions."
+    />
+    <!--
+      第九堂作品集首頁：明亮版。整份覆蓋網站根目錄的 index.html。只選一份，不要和深色版疊在一起。
+      頁面給招生委員看，所以畫面上的字是英文。課堂討論仍用中文。
+
+      搜尋 REPLACE，換成你自己的。封面、導覽列、頁面裡的 h1，三處名字要一樣。
+      自介可以改成你為什麼喜歡物理。專題一、專題二的句子、數字、假設、Not reached、圖的路徑先不要改。
+      再搜尋 Sample entry。榮譽、社團、志工是假的範例。換成你自己的；沒有的項目整段刪掉。不要留你沒有的獎。
+      頁尾的 your-github-username 與 your_email@gmail.com 也要換掉。
+
+      圖的路徑都寫成 figures/ 或 images/，不要寫 /Users/...。GitHub Pages 上沒有你的桌面。
+      每一張從哪裡來：
+      - figures/interactive_telemetry_compare.html  第五堂。網站 figures/ 裡應該已經有。沒有就從第五堂的 figures/ 再複製，檔名不要改。
+      - figures/interactive_track_gforce.html       第五堂，同上。
+      - figures/vt_drs.png                          第八堂 figures/。本堂複製到網站的 figures/，檔名全小寫，不要改。
+      - figures/vs_drs.png                          第八堂，同上。
+      - figures/st_overtake.png                     第八堂，同上。
+      - figures/gap_scan.png                        第八堂，同上。
+      - images/profile.jpg                          你自己的照片，放到網站的 images/。封面和內頁用同一張。沒有就讓它顯示 Your photo，不要抓網路上的陌生人。
+      - images/club1.jpg、images/club2.jpg          你自己的社團照片。沒有就刪掉那組 photo-grid。
+
+      動態：封面先出現。游標移動時，照片跟著偏並微微傾斜，游標旁邊有一圈看得清楚的暖光。點 Enter 後進到詳細頁。
+      詳細頁裡區塊淡入、底線畫上、兩個點走到已算完的位置（399.1 m 與 470.9 m）、按鈕在兩組結果之間切換。不是另一組模擬。
+    -->
+    <script>
+      if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        document.documentElement.classList.add("motion");
+      }
+      if (!location.hash) document.documentElement.classList.add("has-cover");
+    </script>
     <style>
-        :root {
-            /* 現代學術編輯風格配色（自然人文、高可讀性、去 AI 霓虹感） */
-            --bg-page: #f8fafc;
-            --bg-card: #ffffff;
-            --bg-subtle: #f1f5f9;
-            --border-light: #e2e8f0;
-            --border-medium: #cbd5e1;
+      :root {
+        --bg: #f3efe6;
+        --paper: #f7f4ee;
+        --ink: #1c1915;
+        --body: #3e3934;
+        --muted: #6e675f;
+        --line: #e3dcd0;
+        --line-strong: #cfc6b8;
+        --navy: #243044;
+        --navy-soft: #efe8df;
+        --terra: #8c3a2c;
+        --accent: #8c3a2c;
+        --serif: "Newsreader", "Iowan Old Style", Palatino, "Palatino Linotype",
+          Georgia, serif;
+        --sans: "Source Sans 3", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          sans-serif;
+        --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+          monospace;
+        --border-color: #e7e5e4;
+        --text-heading: #1c1915;
+        --text-body: #3e3934;
+        --text-muted: #6e675f;
+        --academic-blue: #243044;
+      }
 
-            --text-heading: #0f172a;
-            --text-body: #334155;
-            --text-muted: #64748b;
+      * {
+        box-sizing: border-box;
+      }
 
-            --academic-blue: #0369a1;      /* 沉穩牛津學術藍 */
-            --academic-blue-light: #e0f2fe;
-            --accent-terracotta: #c2410c;  /* 陶土磚紅色（強調數值） */
+      html {
+        scroll-behavior: smooth;
+      }
 
-            --font-serif: "Newsreader", "Charter", "Georgia", serif;
-            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif;
-            --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--body);
+        font-family: var(--sans);
+        font-size: 1.02rem;
+        line-height: 1.7;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      ::selection {
+        background: #e6dcc8;
+      }
+
+      :focus-visible {
+        outline: 2px solid var(--navy);
+        outline-offset: 3px;
+      }
+
+      .progress {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: var(--accent);
+        transform: scaleX(0);
+        transform-origin: 0 50%;
+        z-index: 20;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background: rgba(243, 239, 230, 0.92);
+        backdrop-filter: saturate(1.2) blur(10px);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .topbar-inner,
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding-left: 24px;
+        padding-right: 24px;
+      }
+
+      .topbar-inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        min-height: 58px;
+      }
+
+      .logo {
+        font-family: var(--serif);
+        font-size: 1.15rem;
+        font-weight: 500;
+        letter-spacing: -0.02em;
+        color: var(--ink);
+        white-space: nowrap;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 18px;
+        overflow-x: auto;
+      }
+
+      .nav-links a {
+        color: var(--muted);
+        text-decoration: none;
+        font-size: 0.82rem;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        white-space: nowrap;
+        padding: 6px 0;
+        border-bottom: 1px solid transparent;
+      }
+
+      .nav-links a:hover,
+      .nav-links a.is-current {
+        color: var(--ink);
+        border-bottom-color: var(--accent);
+      }
+
+      .container {
+        padding-top: 36px;
+        padding-bottom: 80px;
+      }
+
+      section {
+        margin-bottom: 64px;
+        scroll-margin-top: 76px;
+      }
+
+      html.motion .reveal {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      html.motion .reveal.in {
+        opacity: 1;
+        transform: none;
+        transition: opacity 0.55s ease, transform 0.55s ease;
+      }
+
+      .hero {
+        --hx: 0.5;
+        --hy: 0.5;
+        display: flex;
+        gap: 32px;
+        align-items: flex-start;
+        padding-bottom: 28px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .avatar-frame {
+        flex-shrink: 0;
+        width: 128px;
+        height: 128px;
+      }
+
+      html.motion .avatar-frame {
+        transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+        transform: translate3d(
+          calc((var(--hx) - 0.5) * -10px),
+          calc((var(--hy) - 0.5) * -8px),
+          0
+        );
+      }
+
+      .avatar {
+        width: 128px;
+        height: 128px;
+        object-fit: cover;
+        display: block;
+        border-radius: 4px;
+        border: 1px solid var(--line-strong);
+        background: var(--paper);
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-family: var(--serif);
+        font-weight: 600;
+        color: var(--ink);
+        letter-spacing: -0.015em;
+      }
+
+      h1 {
+        font-size: clamp(2.4rem, 4vw, 3.15rem);
+        font-weight: 500;
+        line-height: 1.08;
+        letter-spacing: -0.03em;
+        margin: 0 0 8px;
+      }
+
+      .role {
+        color: var(--accent);
+        font-size: 0.95rem;
+        letter-spacing: 0.01em;
+        margin-bottom: 12px;
+      }
+
+      .hero p,
+      .prose {
+        margin: 0 0 14px;
+      }
+
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .tag {
+        font-size: 0.72rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--muted);
+        border: none;
+        border-bottom: 1px solid var(--line-strong);
+        background: transparent;
+        border-radius: 0;
+        padding: 0 0 2px;
+      }
+
+      .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        gap: 16px;
+        border-bottom: none;
+        padding-bottom: 0;
+        margin-bottom: 8px;
+      }
+
+      .section-header h2 {
+        font-size: clamp(1.75rem, 3vw, 2.2rem);
+        font-weight: 500;
+        letter-spacing: -0.03em;
+        line-height: 1.15;
+        margin: 0;
+      }
+
+      .sec-num {
+        display: block;
+        font-family: var(--sans);
+        font-size: 0.72rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin: 0 0 6px;
+      }
+
+      .section-tag {
+        font-size: 0.75rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--muted);
+        white-space: nowrap;
+      }
+
+      .card {
+        background: transparent;
+        border: none;
+        border-top: 1px solid var(--ink);
+        border-radius: 0;
+        padding: 22px 0 8px;
+        margin-bottom: 8px;
+      }
+
+      .item-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        align-items: baseline;
+      }
+
+      .item-title {
+        font-family: var(--serif);
+        font-size: 1.35rem;
+        font-weight: 500;
+        letter-spacing: -0.02em;
+        line-height: 1.25;
+        color: var(--ink);
+      }
+
+      .item-date {
+        font-family: var(--mono);
+        font-size: 0.78rem;
+        color: var(--muted);
+        white-space: nowrap;
+      }
+
+      .item-subtitle {
+        font-family: var(--serif);
+        font-style: italic;
+        color: var(--accent);
+        font-size: 1.05rem;
+        margin: 6px 0 14px;
+      }
+
+      .item-desc {
+        margin: 0;
+        font-size: 0.98rem;
+      }
+
+      .metrics-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0;
+        margin: 22px 0 8px;
+        border-top: 1px solid var(--ink);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .metric-box {
+        background: transparent;
+        border: none;
+        border-radius: 0;
+        padding: 14px 16px 16px 0;
+        text-align: left;
+      }
+
+      .metric-val {
+        font-family: var(--serif);
+        font-weight: 500;
+        font-size: 1.7rem;
+        letter-spacing: -0.03em;
+        line-height: 1.15;
+        color: var(--ink);
+        font-variant-numeric: tabular-nums;
+        background-image: linear-gradient(var(--terra), var(--terra));
+        background-repeat: no-repeat;
+        background-position: 0 100%;
+        background-size: 0 1px;
+        display: inline-block;
+      }
+
+      html.motion .reveal.in .metric-val {
+        background-size: 100% 1px;
+        transition: background-size 0.7s ease 0.12s;
+      }
+
+      .metric-lbl {
+        margin-top: 6px;
+        font-size: 0.75rem;
+        line-height: 1.4;
+        letter-spacing: 0.02em;
+        color: var(--muted);
+      }
+
+      .equation {
+        display: flex;
+        flex-wrap: wrap;
+        column-gap: 0.4em;
+        align-items: baseline;
+        font-family: var(--serif);
+        font-size: 1.2rem;
+        color: var(--ink);
+        background: #f6f1ea;
+        border-radius: 0;
+        padding: 14px 0 4px;
+        margin: 8px 0 0;
+      }
+
+      .eq-tail {
+        white-space: nowrap;
+      }
+
+      .term-cd,
+      .term-rho {
+        padding: 0 3px;
+        border-radius: 2px;
+      }
+
+      .term-cd {
+        background: #f3e4dc;
+        color: var(--accent);
+      }
+
+      .term-rho {
+        background: #e4e8ee;
+        color: var(--navy);
+      }
+
+      .delta {
+        margin: 18px 0 14px;
+        padding: 2px 0 2px 14px;
+        border-left: 2px solid var(--accent);
+        background: transparent;
+        color: var(--ink);
+        font-size: 0.98rem;
+      }
+
+      .case-tabs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 8px;
+      }
+
+      .case-tabs button {
+        font: inherit;
+        font-size: 0.9rem;
+        color: var(--ink);
+        background: transparent;
+        border: 1px solid var(--line-strong);
+        border-radius: 4px;
+        padding: 7px 12px;
+        cursor: pointer;
+      }
+
+      .case-tabs button[aria-selected="true"] {
+        background: var(--ink);
+        border-color: var(--ink);
+        color: var(--paper);
+      }
+
+      .rail-note,
+      .legend,
+      .tow-note,
+      .figure-hint,
+      .replace-note {
+        color: var(--muted);
+        font-size: 0.86rem;
+      }
+
+      .rail-scale {
+        position: relative;
+        height: 1.3rem;
+        margin-top: 14px;
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        color: var(--muted);
+      }
+
+      .rail-scale span {
+        position: absolute;
+        top: 0;
+      }
+
+      .rail-scale span:first-child {
+        left: 0;
+      }
+
+      .rail-scale span:nth-child(2) {
+        left: 18.75%;
+        transform: translateX(-50%);
+      }
+
+      .rail-scale span:last-child {
+        right: 0;
+      }
+
+      .rail-track {
+        position: relative;
+        height: 2.4rem;
+      }
+
+      .rail-track::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 50%;
+        height: 2px;
+        background: var(--line-strong);
+        transform: translateY(-50%);
+      }
+
+      .rail-band {
+        position: absolute;
+        left: 18.75%;
+        right: 0;
+        top: 50%;
+        height: 12px;
+        transform: translateY(-50%);
+        background: rgba(30, 58, 95, 0.08);
+        border-left: 1px solid rgba(30, 58, 95, 0.45);
+      }
+
+      .pin {
+        position: absolute;
+        top: 50%;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+      }
+
+      .pin-zone {
+        left: 49.8875%;
+        background: var(--terra);
+      }
+
+      .pin-closed {
+        left: 58.8625%;
+        background: var(--navy);
+      }
+
+      html.motion .rail:not(.is-set) .pin {
+        left: 0;
+      }
+
+      html.motion .pin-zone {
+        transition: left 1.05s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease,
+          transform 0.2s ease;
+      }
+
+      html.motion .pin-closed {
+        transition: left 1.05s cubic-bezier(0.16, 1, 0.3, 1) 0.12s,
+          opacity 0.2s ease, transform 0.2s ease;
+      }
+
+      .case-panel[data-case="zone"] .pin-closed,
+      .case-panel[data-case="closed"] .pin-zone {
+        opacity: 0.35;
+        transform: translate(-50%, -50%) scale(0.85);
+      }
+
+      .legend {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px 16px;
+        list-style: none;
+        padding: 0;
+        margin: 8px 0 0;
+      }
+
+      .legend li {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .swatch {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        display: inline-block;
+      }
+
+      .swatch.zone {
+        background: var(--accent);
+      }
+
+      .swatch.closed {
+        background: var(--navy);
+      }
+
+      .swatch.band {
+        width: 18px;
+        height: 8px;
+        border-radius: 1px;
+        background: rgba(140, 58, 44, 0.16);
+        border-left: 1px solid var(--accent);
+      }
+
+      .case-live {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin-top: 16px;
+      }
+
+      .case-live.is-swapping {
+        opacity: 0;
+      }
+
+      html.motion .case-live {
+        transition: opacity 0.14s linear;
+      }
+
+      .readout {
+        border-top: 1px solid var(--line);
+        padding-top: 8px;
+      }
+
+      .kicker {
+        font-size: 0.75rem;
+        letter-spacing: 0.04em;
+        color: var(--muted);
+      }
+
+      .readout-val {
+        font-family: var(--serif);
+        font-size: 1.45rem;
+        color: var(--ink);
+        font-variant-numeric: tabular-nums;
+      }
+
+      .readout-sub {
+        font-size: 0.8rem;
+        color: var(--terra);
+      }
+
+      .case-blurb {
+        grid-column: 1 / -1;
+        margin: 0;
+        color: var(--body);
+      }
+
+      .tow {
+        margin-top: 22px;
+        padding-top: 16px;
+        border-top: 1px solid var(--line);
+      }
+
+      .tow h3 {
+        font-family: var(--serif);
+        font-weight: 500;
+        font-style: italic;
+        font-size: 1.28rem;
+        letter-spacing: -0.02em;
+        line-height: 1.35;
+        margin: 0 0 12px;
+      }
+
+      .tow-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .tow-grid div {
+        background: transparent;
+        border: none;
+        border-top: 1px solid var(--line);
+        border-radius: 0;
+        padding: 12px 16px 4px 0;
+      }
+
+      .tow-grid .metric-val {
+        font-size: 1.35rem;
+      }
+
+      .tow-grid p {
+        margin: 6px 0 0;
+        font-size: 0.9rem;
+      }
+
+      .plot {
+        margin: 22px 0 0;
+      }
+
+      .plot figcaption {
+        font-size: 0.92rem;
+        color: var(--ink);
+        margin-bottom: 8px;
+      }
+
+      .plot figcaption span {
+        font-family: var(--mono);
+        font-size: 0.75rem;
+        color: var(--muted);
+        margin-right: 8px;
+      }
+
+      .plot img {
+        width: 100%;
+        height: auto;
+        display: block;
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 4px;
+      }
+
+      .chart-frame {
+        height: 560px;
+        border: 1px solid var(--line);
+        border-radius: 4px;
+        overflow: hidden;
+        background: #fff;
+      }
+
+      .chart-frame iframe {
+        width: 100%;
+        height: 100%;
+        border: 0;
+      }
+
+      .insight-callout {
+        margin-top: 26px;
+        padding: 4px 0 4px 16px;
+        background: transparent;
+        border-radius: 0;
+        border-left: 2px solid var(--accent);
+      }
+
+      .insight-callout h3 {
+        margin: 0 0 8px;
+        font-family: var(--serif);
+        font-weight: 500;
+        font-style: italic;
+        font-size: 1.2rem;
+        color: var(--ink);
+      }
+
+      .insight-callout p {
+        margin: 0;
+        font-size: 0.95rem;
+      }
+
+      .replace-note {
+        border: none;
+        border-radius: 0;
+        padding: 0 0 10px;
+        margin: 0 0 4px;
+        font-family: var(--serif);
+        font-style: italic;
+        color: var(--accent);
+      }
+
+      .photo-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-top: 14px;
+      }
+
+      .photo-card {
+        border: 1px solid var(--line);
+        border-radius: 4px;
+        overflow: hidden;
+        background: var(--paper);
+      }
+
+      .photo-card img {
+        width: 100%;
+        height: 170px;
+        object-fit: cover;
+        display: block;
+        background: #f7f4ee;
+      }
+
+      .photo-card .caption {
+        padding: 8px 10px;
+        font-size: 0.8rem;
+        color: var(--muted);
+      }
+
+      .print-only {
+        display: none;
+      }
+
+      footer {
+        border-top: 1px solid var(--line);
+        padding-top: 22px;
+        color: var(--muted);
+        font-size: 0.86rem;
+      }
+
+      footer a {
+        color: var(--navy);
+        text-decoration: none;
+      }
+
+      footer a:hover {
+        text-decoration: underline;
+      }
+
+      @media (max-width: 720px) {
+        h1 {
+          font-size: 2.15rem;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            background-color: var(--bg-page);
-            color: var(--text-body);
-            font-family: var(--font-sans);
-            line-height: 1.65;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        .container {
-            max-width: 920px;
-            margin: 0 auto;
-            padding: 48px 24px 96px;
-        }
-
-        /* 導覽列：極簡線條風 */
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border-light);
-            padding-bottom: 16px;
-            margin-bottom: 48px;
-        }
-
-        .logo {
-            font-size: 1.05rem;
-            font-weight: 700;
-            letter-spacing: -0.01em;
-            color: var(--text-heading);
-            text-transform: uppercase;
-        }
-
-        .nav-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            margin-left: 24px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: color 0.15s ease;
-        }
-
-        .nav-links a:hover {
-            color: var(--academic-blue);
-        }
-
-        /* 自我介紹 Hero：經典學術學者排版 */
         .hero {
-            display: flex;
-            align-items: flex-start;
-            gap: 36px;
-            margin-bottom: 56px;
-            padding-bottom: 40px;
-            border-bottom: 1px solid var(--border-light);
-        }
-
-        .avatar {
-            width: 140px;
-            height: 140px;
-            border-radius: 8px; /* 沉穩方圓角，取代花俏大圓形 */
-            object-fit: cover;
-            border: 1px solid var(--border-medium);
-            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
-            flex-shrink: 0;
-        }
-
-        .hero-text h1 {
-            font-size: 2.1rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            color: var(--text-heading);
-            margin-bottom: 6px;
-        }
-
-        .hero-text .title {
-            color: var(--academic-blue);
-            font-size: 1.05rem;
-            font-weight: 600;
-            margin-bottom: 14px;
-        }
-
-        .hero-text p {
-            color: var(--text-body);
-            font-size: 0.98rem;
-            line-height: 1.7;
-            margin-bottom: 18px;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
         }
 
         .tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
+          justify-content: center;
         }
 
-        .tag {
-            background-color: var(--bg-subtle);
-            color: var(--text-heading);
-            border: 1px solid var(--border-light);
-            padding: 3px 10px;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-weight: 500;
+        .topbar-inner {
+          flex-wrap: wrap;
+          padding-top: 8px;
+          padding-bottom: 8px;
         }
 
-        /* 區塊標題 */
-        section {
-            margin-bottom: 56px;
+        .nav-links {
+          width: 100%;
+          padding-bottom: 4px;
         }
 
-        .section-header {
-            display: flex;
-            align-items: baseline;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            border-bottom: 2px solid var(--text-heading);
-            padding-bottom: 8px;
+        .metrics-grid,
+        .case-live,
+        .tow-grid,
+        .photo-grid {
+          grid-template-columns: 1fr 1fr;
         }
 
-        .section-header h2 {
-            font-size: 1.35rem;
-            font-weight: 700;
-            color: var(--text-heading);
-            letter-spacing: -0.01em;
+        .case-blurb {
+          grid-column: 1 / -1;
         }
 
-        .section-header .section-tag {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--text-muted);
-            font-weight: 600;
+        .chart-frame {
+          height: 420px;
         }
 
-        /* 卡片設計：乾淨紙感卡片 */
-        .card {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-light);
-            border-radius: 6px;
-            padding: 24px;
-            margin-bottom: 20px;
-            box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+        .item-row {
+          flex-direction: column;
+          gap: 2px;
+        }
+      }
+
+      /* Cover: a title page. Enter lifts it away and the site arrives. */
+      html.has-cover {
+        overflow: hidden;
+      }
+
+      html.has-cover:not(.is-open) .site {
+        visibility: hidden;
+      }
+
+      .cover {
+        --mx: 0.36;
+        --my: 0.52;
+        position: fixed;
+        inset: 0;
+        z-index: 40;
+        display: grid;
+        place-items: center;
+        padding: 40px 28px;
+        overflow: hidden;
+        text-align: left;
+        background:
+          radial-gradient(120% 90% at 50% 42%, transparent 42%, rgba(62, 44, 34, 0.16) 100%),
+          var(--bg);
+      }
+
+      .cover-glow {
+        display: none;
+      }
+
+      html.motion .cover-glow {
+        display: block;
+        position: absolute;
+        z-index: 0;
+        width: 680px;
+        height: 680px;
+        border-radius: 50%;
+        left: calc(var(--mx) * 100%);
+        top: calc(var(--my) * 100%);
+        pointer-events: none;
+        background: radial-gradient(
+          circle,
+          rgba(255, 214, 164, 0.95) 0%,
+          rgba(214, 112, 68, 0.62) 30%,
+          rgba(140, 58, 44, 0.22) 58%,
+          transparent 74%
+        );
+        filter: blur(8px);
+        transition: left 0.65s cubic-bezier(0.16, 1, 0.3, 1), top 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+        animation: glow-breathe 3.8s ease-in-out infinite;
+      }
+
+      @keyframes glow-breathe {
+        0%,
+        100% {
+          transform: translate(-50%, -50%) scale(1);
+        }
+        50% {
+          transform: translate(-50%, -50%) scale(1.08);
+        }
+      }
+
+      html:not(.has-cover) .cover {
+        display: none;
+      }
+
+      .cover-card {
+        position: relative;
+        z-index: 1;
+        width: min(920px, 100%);
+      }
+
+      .cover-split {
+        display: grid;
+        grid-template-columns: 1.35fr 0.65fr;
+        gap: 56px;
+        align-items: center;
+      }
+
+      .cover-frame {
+        justify-self: end;
+      }
+
+      html.motion .cover-frame {
+        transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+        transform: translate3d(
+            calc((var(--mx) - 0.5) * -52px),
+            calc((var(--my) - 0.5) * -36px),
+            0
+          )
+          rotate(calc((var(--mx) - 0.5) * -6deg));
+      }
+
+      .cover-photo {
+        width: min(280px, 100%);
+        height: 340px;
+        object-fit: cover;
+        display: block;
+        margin: 0;
+        border-radius: 2px;
+        border: 1px solid #c4b9a8;
+        background: #e4dcd0;
+      }
+
+      .cover-kicker {
+        margin: 0 0 18px;
+        font-size: 0.72rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+
+      .cover-name {
+        margin: 0;
+        font-family: var(--serif);
+        font-weight: 500;
+        font-size: clamp(3.1rem, 6vw, 4.8rem);
+        line-height: 0.95;
+        letter-spacing: -0.035em;
+        color: var(--ink);
+      }
+
+      .cover-rule {
+        width: 72px;
+        height: 1px;
+        margin: 22px 0;
+        background: var(--accent);
+        transform: scaleX(0);
+        transform-origin: left center;
+      }
+
+      .cover-line {
+        margin: 0;
+        max-width: 28em;
+        color: var(--body);
+        font-size: 1.18rem;
+        line-height: 1.55;
+      }
+
+      .enter {
+        margin-top: 28px;
+        font: inherit;
+        font-size: 0.78rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--ink);
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid var(--ink);
+        border-radius: 0;
+        padding: 4px 0 6px;
+        cursor: pointer;
+      }
+
+      .enter span {
+        display: inline-block;
+      }
+
+      html.motion .enter span {
+        transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+        transform: translateX(calc((var(--mx) - 0.5) * 12px));
+      }
+
+      .enter:hover {
+        color: var(--accent);
+        border-bottom-color: var(--accent);
+      }
+
+      html.motion.has-cover:not(.is-leaving) .cover-photo,
+      html.motion.has-cover:not(.is-leaving) .cover-copy {
+        animation: cover-rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+      }
+
+      html.motion.has-cover:not(.is-leaving) .cover-copy {
+        animation-delay: 0.12s;
+      }
+
+      html.motion.has-cover:not(.is-leaving) .cover-rule {
+        animation: cover-draw 0.55s ease 0.32s forwards;
+      }
+
+      html.motion.is-leaving .cover {
+        pointer-events: none;
+        animation: cover-lift 0.75s cubic-bezier(0.77, 0, 0.18, 1) forwards;
+      }
+
+      html.motion.is-open .site {
+        animation: site-arrive 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+      }
+
+      @keyframes cover-rise {
+        from {
+          opacity: 0;
+          transform: translateY(12px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+
+      @keyframes cover-draw {
+        to {
+          transform: scaleX(1);
+        }
+      }
+
+      @keyframes cover-lift {
+        to {
+          opacity: 0;
+          transform: translateY(-12%);
+        }
+      }
+
+      @keyframes site-arrive {
+        from {
+          opacity: 0;
+          transform: translateY(18px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+
+      @media (max-width: 720px) {
+        .cover {
+          --mx: 0.5;
+          --my: 0.42;
+          background: var(--bg);
         }
 
-        /* 指標面板：嚴肅科研統計風格 */
-        .metrics-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 12px;
-            margin: 20px 0;
+        .cover-card {
+          text-align: center;
         }
 
-        .metric-box {
-            background-color: var(--bg-subtle);
-            border: 1px solid var(--border-light);
-            padding: 14px;
-            border-radius: 4px;
-            text-align: center;
+        .cover-split {
+          grid-template-columns: 1fr;
+          gap: 28px;
+        }
+
+        .cover-frame {
+          order: -1;
+          justify-self: center;
+        }
+
+        .cover-photo {
+          width: 168px;
+          height: 200px;
+        }
+
+        .cover-name {
+          font-size: 2.6rem;
+        }
+
+        .cover-rule {
+          margin-left: auto;
+          margin-right: auto;
+          transform-origin: center;
+        }
+
+        .cover-line {
+          margin-left: auto;
+          margin-right: auto;
         }
 
         .metric-val {
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: var(--accent-terracotta);
-            font-family: var(--font-sans);
-            letter-spacing: -0.02em;
+          font-size: 1.35rem;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
         }
 
-        .metric-lbl {
-            font-size: 0.78rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
-            font-weight: 600;
-            margin-top: 4px;
+        .progress {
+          display: none;
+        }
+      }
+
+      @media print {
+        .cover,
+        .progress,
+        .topbar,
+        .case-tabs,
+        .replace-note {
+          display: none;
         }
 
-        /* 圖表外框：與白色畫布無縫融合 */
-        .chart-frame {
-            width: 100%;
-            height: 580px;
-            border: 1px solid var(--border-light);
-            border-radius: 4px;
-            overflow: hidden;
-            margin: 18px 0 24px;
-            background-color: #ffffff;
+        html.has-cover .site {
+          visibility: visible !important;
         }
 
-        .chart-frame iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
+        .print-only {
+          display: block;
         }
 
-        /* 物理洞見引用盒 */
-        .insight-callout {
-            background-color: var(--bg-subtle);
-            border-left: 3px solid var(--academic-blue);
-            padding: 16px 18px;
-            border-radius: 0 4px 4px 0;
-            margin-top: 20px;
+        body {
+          background: #fff;
         }
 
-        .insight-callout h4 {
-            font-size: 0.95rem;
-            font-weight: 700;
-            color: var(--academic-blue);
-            margin-bottom: 6px;
+        .reveal {
+          opacity: 1 !important;
+          transform: none !important;
         }
-
-        .insight-callout p {
-            font-size: 0.92rem;
-            color: var(--text-body);
-            line-height: 1.65;
-        }
-
-        /* 清單列表排版 */
-        .item-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 4px;
-        }
-
-        .item-title {
-            font-size: 1.05rem;
-            font-weight: 600;
-            color: var(--text-heading);
-        }
-
-        .item-date {
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            font-family: var(--font-mono);
-            white-space: nowrap;
-        }
-
-        .item-subtitle {
-            color: var(--academic-blue);
-            font-size: 0.9rem;
-            font-weight: 500;
-            margin-bottom: 10px;
-        }
-
-        .item-desc {
-            color: var(--text-body);
-            font-size: 0.92rem;
-            line-height: 1.65;
-        }
-
-        /* 成果相簿 */
-        .photo-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 16px;
-            margin-top: 18px;
-        }
-
-        .photo-card {
-            background: var(--bg-subtle);
-            border-radius: 4px;
-            overflow: hidden;
-            border: 1px solid var(--border-light);
-        }
-
-        .photo-card img {
-            width: 100%;
-            height: 175px;
-            object-fit: cover;
-            display: block;
-        }
-
-        .photo-card .caption {
-            padding: 10px 12px;
-            font-size: 0.82rem;
-            color: var(--text-muted);
-            background-color: var(--bg-card);
-            border-top: 1px solid var(--border-light);
-        }
-
-        /* 頁尾 */
-        footer {
-            border-top: 1px solid var(--border-light);
-            padding-top: 32px;
-            margin-top: 64px;
-            text-align: center;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
-
-        footer a {
-            color: var(--academic-blue);
-            text-decoration: none;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
-        }
-
-        /* 手機瀏覽適配 */
-        @media (max-width: 640px) {
-            .hero {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-            }
-            .tags {
-                justify-content: center;
-            }
-            .nav-links {
-                display: none;
-            }
-            .chart-frame {
-                height: 420px;
-            }
-        }
+      }
     </style>
-</head>
-<body>
-
-<div class="container">
-
-    <!-- 頂部導覽列 -->
-    <nav>
-        <div class="logo">【你的英文名字】/ Portfolio</div>
-        <div class="nav-links">
-            <a href="#about">關於我</a>
-            <a href="#research">科研專案</a>
-            <a href="#honors">榮譽競賽</a>
-            <a href="#extracurricular">社團領導</a>
-            <a href="#volunteer">志工服務</a>
-        </div>
-    </nav>
-
-    <!-- 1. 自我介紹 (Hero Section) -->
-    <section id="about" class="hero">
-        <!-- 【大頭照】：預設乾淨陽光男高中生肖像，可隨時替換為 images/profile.jpg -->
-        <img class="avatar" src="images/profile.jpg" onerror="this.src='<https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=400&q=80>'" alt="個人照片">
-        <div class="hero-text">
-            <h1>【你的名字】(Your Name)</h1>
-            <div class="title">高中三年級 · 物理計算與數據分析愛好者</div>
-            <p>
-                專注於將經典力學、流體動力學定律與 Python 科學數值模擬結合，探討極限賽車運動中的物理邊界。目標申請美國大學物理學系（Physics）或機械工程學系（Mechanical Engineering），具備資料處理、數值微積分與開源專案建置能力。
+    <noscript>
+      <style>
+        .cover {
+          display: none !important;
+        }
+        html.has-cover,
+        html.has-cover .site {
+          overflow: visible !important;
+          visibility: visible !important;
+        }
+        html.motion .reveal {
+          opacity: 1 !important;
+          transform: none !important;
+        }
+        html.motion .pin-zone {
+          left: 49.8875% !important;
+        }
+        html.motion .pin-closed {
+          left: 58.8625% !important;
+        }
+      </style>
+    </noscript>
+  </head>
+  <body>
+    <!-- REPLACE: the name on the cover must match the h1 below -->
+    <div class="cover" id="cover">
+      <div class="cover-glow" aria-hidden="true"></div>
+      <div class="cover-card">
+        <div class="cover-split">
+          <div class="cover-copy">
+            <p class="cover-kicker">Physics Portfolio</p>
+            <p class="cover-name">Your Name</p>
+            <div class="cover-rule" aria-hidden="true"></div>
+            <p class="cover-line">
+              I like physics, and I follow Formula 1.<br />
+              I want to see a law turn into a number.
             </p>
-            <div class="tags">
-                <span class="tag">Classical Mechanics</span>
-                <span class="tag">Python (FastF1, NumPy)</span>
-                <span class="tag">Interactive Visualization (Plotly)</span>
-                <span class="tag">Kinematics & Telemetry</span>
-                <span class="tag">Scientific Computing</span>
-            </div>
+            <button type="button" class="enter" id="enter">Enter <span aria-hidden="true">→</span></button>
+          </div>
+          <div class="cover-frame">
+            <img
+              class="cover-photo"
+              src="images/profile.jpg"
+              alt="Portrait"
+              onerror="this.onerror=null;this.alt='Portrait not added yet';this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22280%22 height=%22340%22%3E%3Crect width=%22100%25%22 height=%22100%25%22 fill=%22%23e4dcd0%22/%3E%3Ctext x=%2250%25%22 y=%2252%25%22 text-anchor=%22middle%22 fill=%22%236e675f%22 font-size=%2216%22 font-family=%22Georgia,serif%22%3EYour photo%3C/text%3E%3C/svg%3E'"
+            />
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
 
-    <!-- 2. 重點科研專題 (Featured Research Project) -->
-    <section id="research">
+    <div class="site" id="site">
+    <div class="progress" id="progress" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <div class="topbar-inner">
+        <!-- REPLACE: name in the navigation -->
+        <div class="logo">Your Name</div>
+        <nav class="nav-links" aria-label="Sections">
+          <a href="#about">About</a>
+          <a href="#research">Project 1</a>
+          <a href="#research-drs">Project 2</a>
+          <a href="#honors">Honors</a>
+          <a href="#extracurricular">Activities</a>
+          <a href="#volunteer">Service</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <section id="about" class="hero">
+        <!-- REPLACE: images/profile.jpg. The same file is used on the cover. -->
+        <div class="avatar-frame">
+          <img
+            class="avatar"
+            src="images/profile.jpg"
+            alt="Portrait"
+            onerror="this.onerror=null;this.alt='Portrait not added yet';this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22128%22 height=%22128%22%3E%3Crect width=%22100%25%22 height=%22100%25%22 fill=%22%23e4dcd0%22/%3E%3Ctext x=%2250%25%22 y=%2254%25%22 text-anchor=%22middle%22 fill=%22%236e675f%22 font-size=%2213%22 font-family=%22Georgia,serif%22%3EYour photo%3C/text%3E%3C/svg%3E'"
+          />
+        </div>
+        <div>
+          <!-- REPLACE: name and this introduction. Write why you like physics. Leave the two projects below as they are. -->
+          <h1>Your Name</h1>
+          <div class="role">Last year of high school · Physics and Formula 1</div>
+          <p>
+            I am in my last year of high school. Physics is the subject I care about most, and Formula 1 is the racing I follow. I like both for the same reason: something happens, and I can calculate it. I want to study physics or mechanical engineering.
+          </p>
+          <div class="tags">
+            <span class="tag">Physics</span>
+            <span class="tag">Formula 1</span>
+            <span class="tag">Classical mechanics</span>
+            <span class="tag">Mechanical engineering</span>
+          </div>
+        </div>
+      </section>
+
+      <section id="research" class="reveal">
         <div class="section-header">
-            <h2>🏎️ 專案一：F1 真實遙測數據的運動學與動能耗散分析</h2>
-            <span class="section-tag">Featured Research</span>
-        </div>
-
-        <div class="card">
-            <div class="item-row">
-                <div class="item-title" style="font-size: 1.15rem;">2023 摩納哥站排位賽：Verstappen vs Leclerc 晚煞車策略與極限做功</div>
-                <div class="item-date">2026 年 8 月</div>
-            </div>
-            <div class="item-subtitle">Kinematic Modeling & Energy Dissipation across Turn 1 Braking Zone</div>
-            <p style="margin-bottom: 16px; color: var(--text-body); font-size: 0.95rem;">
-                本研究採集 FastF1 高頻遙測資料（10 Hz），運用數值中央差分推導賽車縱向減速度與向心加速度 \( a_n = v^2 / r \)。並透過動能定理與功率轉移方程 \( P(t) = m \cdot a(t) \cdot v(t) \)，量化賽車在進彎極限煞車區間的機械能轉換率。
-            </p>
-
-            <!-- 關鍵科學指標面板 -->
-            <div class="metrics-grid">
-                <div class="metric-box">
-                    <div class="metric-val">2.2 MW</div>
-                    <div class="metric-lbl">煞車峰值消耗功率 (Turn 1)</div>
-                </div>
-                <div class="metric-box">
-                    <div class="metric-val">-3.5 G</div>
-                    <div class="metric-lbl">縱向減速度峰值</div>
-                </div>
-                <div class="metric-box">
-                    <div class="metric-val">3.2 G+</div>
-                    <div class="metric-lbl">橫向向心加速度 (Downforce)</div>
-                </div>
-                <div class="metric-box">
-                    <div class="metric-val">798 kg</div>
-                    <div class="metric-lbl">FIA 車重規範基準</div>
-                </div>
-            </div>
-
-            <!-- 嵌入 Plotly 互動圖表 1 (速度與動能) -->
-            <div style="margin-top: 24px;">
-                <div style="font-weight: 600; font-size: 0.95rem; color: var(--text-heading); margin-bottom: 4px;">
-                    圖表 1：雙車手速度與動能隨賽道距離對齊圖 (Interactive Dual-Axis Telemetry)
-                </div>
-                <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px;">
-                    提示：可用滑鼠拖曳框選第一煞車區（80～200 m）進行局部放大，雙擊圖面還原檢視。
-                </div>
-                <div class="chart-frame">
-                    <iframe src="figures/interactive_telemetry_compare.html"></iframe>
-                </div>
-            </div>
-
-            <!-- 嵌入 Plotly 互動圖表 2 (賽道 G 力) -->
-            <div style="margin-top: 24px;">
-                <div style="font-weight: 600; font-size: 0.95rem; color: var(--text-heading); margin-bottom: 4px;">
-                    圖表 2：Circuit de Monaco 2D 賽道向心 G 力熱力分佈圖
-                </div>
-                <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px;">
-                    提示：游標移至任一賽道節點可讀取該座標點的即時速度、總 G 力與橫向向心分量。
-                </div>
-                <div class="chart-frame">
-                    <iframe src="figures/interactive_track_gforce.html"></iframe>
-                </div>
-            </div>
-
-            <!-- 核心物理洞見亮點卡片 -->
-            <div class="insight-callout">
-                <h4>第一原理物理洞見 (Physics Takeaway)</h4>
-                <p>
-                    <strong>1. 煞車功率與速度線性正比：</strong> 煞車功耗速率 \( P(t) = m \cdot a(t) \cdot v(t) \) 在 290 km/h 剛踩下煞車的瞬間達到 2.2 MW（相當於 3000 匹馬力）逆向做功，完全解釋了碳纖維碟盤在進彎初期溫度劇增至 1000°C 的物理機制。<br>
-                    <strong>2. 晚煞車策略的取捨代價：</strong> 遙測對比顯示 Leclerc 進入超強力煞車區晚約 5～8 公尺，但 Verstappen 藉由更線性的減速斜率保留了更佳的出彎開油角度，驗證了賽車運動學中「出彎動能優先於盲目極限晚煞車」的策略平衡。
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- 3. 參賽榮譽與競賽 (Honors & Competitions) -->
-    <section id="honors">
-        <div class="section-header">
-            <h2>🏆 榮譽與學術競賽</h2>
-            <span class="section-tag">Academic Honors</span>
-        </div>
-
-        <div class="card">
-            <div class="item-row">
-                <div class="item-title">全國高中物理探究與實作競賽</div>
-                <div class="item-date">2025.05</div>
-            </div>
-            <div class="item-subtitle">全國二等獎 / 團隊隊長</div>
-            <p class="item-desc">
-                以「雙擺系統的混沌現象數值模擬」為題，使用 Python 與 Runge-Kutta 演算法推導非線性運動方程，驗證微小初始條件造成的相空間軌跡發散。
-            </p>
+          <h2><span class="sec-num">01 — Kinematics</span>Telemetry, braking, and energy</h2>
         </div>
 
         <div class="card">
           <div class="item-row">
-              <div class="item-title">全國高中物理探究與實作競賽</div>
-              <div class="item-date">2025.05</div>
+            <div class="item-title">
+              2023 Monaco qualifying: Verstappen and Leclerc into Turn 1
+            </div>
+            <div class="item-date">2026.08</div>
           </div>
-          <div class="item-subtitle">全國二等獎 / 團隊隊長</div>
-          <p class="item-desc">
-              以「雙擺系統的混沌現象數值模擬」為題，使用 Python 與 Runge-Kutta 演算法推導非線性運動方程，驗證微小初始條件造成的相空間軌跡發散。
+          <div class="item-subtitle">
+            One braking zone, from public qualifying data
+          </div>
+          <p class="prose">
+            I compared Max Verstappen and Charles Leclerc going into Turn 1 at the 2023 Monaco Grand Prix. The data are qualifying telemetry from FastF1, recorded 10 times a second.
           </p>
-      </div>
+          <p class="prose">
+            I used the speed trace to estimate how hard each car slowed down and how hard it turned. Slowing down is the change in speed divided by the change in time. Turning is a<sub>n</sub> = v² / r. The power at one moment is P = m a v. The mass is 798 kg, the FIA minimum, not a weigh-in of these two cars.
+          </p>
 
-        <div class="card">
-            <div class="item-row">
-                <div class="item-title">國際青年物理學家錦標賽 (IYPT) 校內選拔賽</div>
-                <div class="item-date">2024.11</div>
+          <div class="metrics-grid">
+            <div class="metric-box">
+              <div class="metric-val">2.2 MW</div>
+              <div class="metric-lbl">Peak braking power into Turn 1</div>
             </div>
-            <div class="item-subtitle">特優入選（代表校隊培訓）</div>
-            <p class="item-desc">
-                針對表面張力引發的液滴彈跳問題進行理論建模，架設高速攝影機捕捉微秒級形變，並將實驗數值與理論極限對照。
-            </p>
-        </div>
-    </section>
+            <div class="metric-box">
+              <div class="metric-val">−3.5 g</div>
+              <div class="metric-lbl">Peak longitudinal deceleration</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-val">3.2 g+</div>
+              <div class="metric-lbl">Peak lateral acceleration</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-val">798 kg</div>
+              <div class="metric-lbl">Mass used in P = mav</div>
+            </div>
+          </div>
 
-    <!-- 4. 社團經驗與領導力 (Leadership & Clubs) -->
-    <section id="extracurricular">
+          <figure class="plot">
+            <figcaption>
+              <span>Fig. 1</span>Speed and kinetic energy along the lap. Drag a box over the first braking zone, about 80–200 m, to look closer. Double-click to zoom back out.
+            </figcaption>
+            <!-- 第五堂的圖：figures/interactive_telemetry_compare.html。檔名不要改。 -->
+            <div class="chart-frame">
+              <iframe
+                title="Speed and kinetic energy along the lap"
+                src="figures/interactive_telemetry_compare.html"
+              ></iframe>
+            </div>
+          </figure>
+
+          <figure class="plot">
+            <figcaption>
+              <span>Fig. 2</span>How hard the car is turning, drawn on the Monaco circuit. Point at a spot to read the speed and the sideways acceleration.
+            </figcaption>
+            <!-- 第五堂的圖：figures/interactive_track_gforce.html。檔名不要改。 -->
+            <div class="chart-frame">
+              <iframe
+                title="Lateral acceleration along the Monaco circuit"
+                src="figures/interactive_track_gforce.html"
+              ></iframe>
+            </div>
+          </figure>
+
+          <div class="insight-callout">
+            <h3>What I found</h3>
+            <p>
+              <strong>Power depends on speed.</strong>
+              The cars arrive at about 290 km/h. In the first ~0.3 s of braking, the deceleration reaches about −3.5 g. With m = 798 kg, P = m a v gives a peak near 2.2 MW. The same deceleration takes energy away faster when the car is going faster.<br />
+              <strong>“Who brakes later” depends on the cutoff.</strong>
+              If braking starts at −1.5 g or below, the two cars differ by only about 0.2–0.5 m. If heavy braking means −2.5 g or below, Leclerc is about 5–8 m later. Verstappen slows down more gradually, and he gets back on the throttle sooner. I compared the whole trace, not who touches the pedal first.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="research-drs" class="reveal">
         <div class="section-header">
-            <h2>👥 社團經驗與領導力</h2>
-            <span class="section-tag">Leadership</span>
+          <h2><span class="sec-num">02 — Aerodynamics</span>Drag, DRS, and the wake</h2>
         </div>
 
         <div class="card">
-            <div class="item-row">
-                <div class="item-title">高中科研創客社</div>
-                <div class="item-date">2024.09 – 2025.06</div>
+          <div class="item-row">
+            <div class="item-title">Constant power and quadratic drag on an 800 m straight</div>
+            <div class="item-date">2026.09</div>
+          </div>
+          <div class="item-subtitle">
+            DRS changes the drag coefficient. The wake changes the air around the car behind.
+          </div>
+          <p class="prose">
+            I asked what one change does on an 800 m straight. Opening DRS lowers the drag coefficient after 150 m. The wake is a different change: it lowers the air density felt by the car behind, and only while the gap is under 35 m. I integrated Newton’s second law once, with Euler’s method and a time step of 0.01 s. The buttons show those finished results.
+          </p>
+          <!-- 選修 A：只改最後這句英文。保留 800 m、約 15 km/h、沒有到達終端速度。 -->
+          <p class="prose">
+            These are assumptions, not numbers published by a team. The air density is 1.225 kg/m³.
+            The drag coefficient is 0.90 until 150 m, then 0.75. The frontal area is 1.50 m²,
+            the power is 750 kW, the mass is 798 kg, and the car leaves the corner at 100 km/h.
+            The time step is 0.01 s.
+            In the equation, P/v is the forward force from that power, and the other term is air resistance, which grows with speed squared.
+            On an 800 m straight the car does not reach either terminal speed.
+          </p>
+
+          <p class="equation">
+            <span>a = (1/m)</span>
+            <span class="eq-tail">( P/v − ½ ρ <span class="term-cd">C<sub>d</sub></span> A v² )</span>
+          </p>
+          <p class="rail-note">
+            DRS changes <span class="term-cd">C<sub>d</sub></span> in the equation. The wake changes the chase car’s <span class="term-rho">ρ</span>, and only while the cars are close. The button below changes <span class="term-cd">C<sub>d</sub></span> only.
+          </p>
+
+          <div class="metrics-grid">
+            <div class="metric-box">
+              <div class="metric-val">354.2</div>
+              <div class="metric-lbl">Exit speed at 800 m, in km/h, with DRS open after 150 m</div>
             </div>
-            <div class="item-subtitle">社長 / 課程講師</div>
-            <p class="item-desc">
-                帶領 30 餘位社員每週進行科學探究與感測器實驗（Arduino & Python）。規劃了「水火箭空氣動力學」、「3D 列印小型風洞實作」等 6 場專題工作坊，促進社員對流體力學現象的直觀理解。
+            <div class="metric-box">
+              <div class="metric-val">+15.4</div>
+              <div class="metric-lbl">km/h faster than keeping DRS closed</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-val">71.8</div>
+              <div class="metric-lbl">metres earlier to reach 320 km/h</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-val">Not reached</div>
+              <div class="metric-lbl">The 370.3 km/h terminal speed is past the end of this straight</div>
+            </div>
+          </div>
+
+          <div class="case-panel" id="case-panel" data-case="zone">
+            <div class="delta">
+              With DRS open after 150 m, the car is 15.4 km/h faster at 800 m than with DRS closed, and it reaches 320 km/h 71.8 m earlier. It saves 0.86 s getting to 320 km/h, but only 0.20 s over the whole 800 m. A higher speed at the finish is not the same as saving that much time along the way.
+            </div>
+
+            <div class="case-tabs" role="tablist" aria-label="Two finished DRS cases">
+              <button type="button" role="tab" id="tab-zone" aria-selected="true" aria-controls="case-live" data-case="zone">
+                Open after 150 m · C<sub>d</sub> 0.75
+              </button>
+              <button type="button" role="tab" id="tab-closed" aria-selected="false" aria-controls="case-live" data-case="closed">
+                Closed · C<sub>d</sub> 0.90
+              </button>
+            </div>
+            <p class="rail-note">
+              Each dot marks where the speed reaches 320 km/h. It is not a car driving along the straight. The dot moves to that distance and stops.
             </p>
 
-            <!-- 社團照片區（學生可替換 images/club1.jpg, images/club2.jpg） -->
-            <div class="photo-grid">
-                <div class="photo-card">
-                    <img src="images/club1.jpg" onerror="this.src='<https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=600&q=80>'" alt="工作坊教學">
-                    <div class="caption">主講 Python 感測器數據處理工作坊</div>
-                </div>
-                <div class="photo-card">
-                    <img src="images/club2.jpg" onerror="this.src='<https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=600&q=80>'" alt="團隊討論">
-                    <div class="caption">與社員進行風洞模型實驗數據校驗</div>
-                </div>
+            <div class="rail" id="rail">
+              <div class="rail-scale" aria-hidden="true">
+                <span>0</span>
+                <span>150 m</span>
+                <span>800 m</span>
+              </div>
+              <div class="rail-track" aria-hidden="true">
+                <div class="rail-band"></div>
+                <div class="pin pin-zone" title="Open after 150 m: 320 km/h at 399.1 m"></div>
+                <div class="pin pin-closed" title="Closed: 320 km/h at 470.9 m"></div>
+              </div>
             </div>
-        </div>
-    </section>
+            <ul class="legend">
+              <li><i class="swatch zone"></i>Open after 150 m: 320 km/h at 399.1 m</li>
+              <li><i class="swatch closed"></i>Closed: 320 km/h at 470.9 m</li>
+              <li><i class="swatch band"></i>C<sub>d</sub> drops only after 150 m</li>
+            </ul>
 
-    <!-- 5. 志工服務與社會實踐 (Community Service) -->
-    <section id="volunteer">
+            <div class="case-live" id="case-live">
+              <div class="readout">
+                <div class="kicker">Exit at 800 m</div>
+                <div class="readout-val" data-field="speed">354.2 km/h</div>
+              </div>
+              <div class="readout">
+                <div class="kicker">Distance to 320 km/h</div>
+                <div class="readout-val" data-field="dist">399.1 m</div>
+              </div>
+              <div class="readout">
+                <div class="kicker">Terminal speed</div>
+                <div class="readout-val" data-field="term">370.3 km/h</div>
+                <div class="readout-sub">Not on this straight</div>
+              </div>
+              <p class="case-blurb" data-field="blurb">
+                After 150 m, Cd drops to 0.75. The car finishes the straight at 354.2 km/h and reaches 320 km/h at 399.1 m. The terminal speed, 370.3 km/h, is not reached on this straight.
+              </p>
+            </div>
+            <p class="print-only">
+              Closed: 338.8 km/h at 800 m, 320 km/h at 470.9 m, terminal speed 348.5 km/h, also not reached.
+            </p>
+            <noscript>
+              <p class="rail-note">
+                Without JavaScript this block stays on the open-after-150 m case. Closed is 338.8 km/h at 800 m, 320 km/h at 470.9 m, and a terminal speed of 348.5 km/h.
+              </p>
+            </noscript>
+          </div>
+
+          <div class="tow">
+            <h3>The wake is a separate question. In these two figures, DRS is closed on both cars.</h3>
+            <div class="tow-grid">
+              <div>
+                <div class="metric-val">0.40 s</div>
+                <p>The car behind leaves the corner 0.40 s later. The gap starts near 13 m, still inside the wake, and the cars draw level at about 743 m.</p>
+              </div>
+              <div>
+                <div class="metric-val">0.55 s</div>
+                <p>The car behind starts in the wake. The gap then grows past 35 m, the help disappears, and the cars never meet.</p>
+              </div>
+            </div>
+            <p class="tow-note">
+              Inside 35 m, the car behind feels 70% of the usual air density, 1.225 kg/m³. The 0.40 s is a head start I chose for this model. It is not the one-second rule in Formula 1. The lead car stays at the full density.
+            </p>
+          </div>
+
+          <figure class="plot">
+            <figcaption>
+              <span>Fig. 1</span>Speed against time. Blue keeps DRS closed (Cd 0.90). Orange opens it after 150 m (Cd 0.75). Green has it open from the start. At 800 m the speeds are 338.8, 354.2, and 354.5 km/h. A curve that flattens is nearing its terminal speed, 348.5 km/h closed or 370.3 km/h open. It does not get there.
+            </figcaption>
+            <!-- 第八堂的圖：figures/vt_drs.png。從第八堂 figures/ 複製過來，檔名不要改。 -->
+            <img
+              src="figures/vt_drs.png"
+              alt="Speed versus time for DRS closed, opened at 150 m, and always open"
+            />
+          </figure>
+
+          <figure class="plot">
+            <figcaption>
+              <span>Fig. 2</span>Speed against distance. The lines mark 150 m, where DRS opens in the orange case, and 800 m, the end of the straight. Leaving near 354 km/h is not the same as reaching the 370.3 km/h terminal speed.
+            </figcaption>
+            <!-- 第八堂的圖：figures/vs_drs.png。從第八堂 figures/ 複製過來，檔名不要改。 -->
+            <img
+              src="figures/vs_drs.png"
+              alt="Speed versus distance, with the DRS zone at 150 m and the end of the 800 m straight"
+            />
+          </figure>
+
+          <figure class="plot">
+            <figcaption>
+              <span>Fig. 3</span>DRS is closed on both cars. The car behind leaves 0.40 s later, about 13 m back, and draws level at about 743 m, still on this straight.
+            </figcaption>
+            <!-- 第八堂的圖：figures/st_overtake.png。從第八堂 figures/ 複製過來，檔名不要改。 -->
+            <img
+              src="figures/st_overtake.png"
+              alt="Lead and chase distance versus time for a 0.40 second corner-exit delay"
+            />
+          </figure>
+
+          <figure class="plot">
+            <figcaption>
+              <span>Fig. 4</span>How late the second car can leave and still draw level. A point at or inside 800 m means the pass happens on this straight. From 0.55 s onward the gap exceeds 35 m, the wake turns off, and the cars never meet.
+            </figcaption>
+            <!-- 第八堂的圖：figures/gap_scan.png。從第八堂 figures/ 複製過來，檔名不要改。 -->
+            <img
+              src="figures/gap_scan.png"
+              alt="Passing distance versus corner-exit delay. Points beyond 800 m are not a completed pass on this straight."
+            />
+          </figure>
+
+          <div class="insight-callout">
+            <h3>What I found</h3>
+            <p>
+              <strong>DRS lowers the drag coefficient, and only after 150 m.</strong>
+              Cd goes from 0.90 to 0.75. The speed at 800 m goes from 338.8 km/h to 354.2 km/h, which is 15.4 km/h faster. The car reaches 320 km/h at 399.1 m instead of 470.9 m. The terminal speeds, 348.5 km/h and 370.3 km/h, are still ahead of both curves. Getting to 320 km/h takes 0.86 s less. Finishing the 800 m takes only 0.20 s less.<br />
+              <strong>The wake changes the air around the car behind, and only up close.</strong>
+              This is not Formula 1’s one-second rule. A 0.40 s delay still catches up at about 743 m. A 0.55 s delay loses the wake once the gap is past 35 m, and the cars never meet.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="honors" class="reveal">
         <div class="section-header">
-            <h2>🤝 志工服務與科學教育推廣</h2>
-            <span class="section-tag">Community</span>
+          <h2><span class="sec-num">03</span>Honors</h2>
+        </div>
+        <p class="replace-note">Sample entry. Replace it with your own record, or delete the card. Do not publish an award you did not receive.</p>
+
+        <div class="card">
+          <div class="item-row">
+            <div class="item-title">National High School Physics Inquiry Competition</div>
+            <div class="item-date">2025.05</div>
+          </div>
+          <div class="item-subtitle">Second prize · team lead</div>
+          <p class="item-desc">
+            Our team simulated a double pendulum in Python. I looked at how a very small change in the starting position pulls the two paths apart.
+          </p>
         </div>
 
         <div class="card">
-            <div class="item-row">
-                <div class="item-title">偏鄉國小科學啟蒙營隊</div>
-                <div class="item-date">2024 暑期 (40 小時服務證明)</div>
-            </div>
-            <div class="item-subtitle">物理趣味實驗教案負責人</div>
-            <p class="item-desc">
-                赴偏鄉小學設計「簡易光學望遠鏡」與「電磁感應小火車」動手做教案，帶領 40 位學童理解光學折射與法拉第電磁感應。透過生活化道具將抽象物理具象化，培養學員的科學好奇心。
-            </p>
+          <div class="item-row">
+            <div class="item-title">School selection for the International Young Physicists’ Tournament</div>
+            <div class="item-date">2024.11</div>
+          </div>
+          <div class="item-subtitle">Selected for the school team</div>
+          <p class="item-desc">
+            I estimated how long a water droplet takes to bounce, then checked that time against a slow-motion video.
+          </p>
         </div>
-    </section>
+      </section>
 
-    <!-- 頁尾版權與連結 -->
-    <footer>
-        <p>&copy; 2026 【你的名字】(Your Name) · Academic Portfolio</p>
-        <p style="margin-top: 6px;">
-            <a href="<https://github.com/【你的GitHub帳號】>" target="_blank">GitHub Profile</a> ·
-            <a href="mailto:your_email@gmail.com">Email Contact</a>
+      <section id="extracurricular" class="reveal">
+        <div class="section-header">
+          <h2><span class="sec-num">04</span>Activities</h2>
+        </div>
+        <p class="replace-note">Sample entry. Write a role you actually held. Replace the photographs, or delete the whole photo grid if you have none.</p>
+
+        <div class="card">
+          <div class="item-row">
+            <div class="item-title">Research and Making Club</div>
+            <div class="item-date">2024.09 – 2025.06</div>
+          </div>
+          <div class="item-subtitle">President</div>
+          <p class="item-desc">
+            I led a weekly club where we measured things and plotted them in Python. For two longer projects, a water rocket and a small wind tunnel, we watched the drag before we wrote the formula.
+          </p>
+          <div class="photo-grid">
+            <div class="photo-card">
+              <img
+                src="images/club1.jpg"
+                alt="Club photograph"
+                onerror="this.onerror=null;this.alt='Photograph not added yet';this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22640%22 height=%22340%22%3E%3Crect width=%22100%25%22 height=%22100%25%22 fill=%22%23e4dcd0%22/%3E%3Ctext x=%2250%25%22 y=%2254%25%22 text-anchor=%22middle%22 fill=%22%236e675f%22 font-size=%2220%22 font-family=%22Georgia,serif%22%3EYour photo%3C/text%3E%3C/svg%3E'"
+              />
+              <div class="caption">Replace with your photograph and a caption.</div>
+            </div>
+            <div class="photo-card">
+              <img
+                src="images/club2.jpg"
+                alt="Club photograph"
+                onerror="this.onerror=null;this.alt='Photograph not added yet';this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22640%22 height=%22340%22%3E%3Crect width=%22100%25%22 height=%22100%25%22 fill=%22%23e4dcd0%22/%3E%3Ctext x=%2250%25%22 y=%2254%25%22 text-anchor=%22middle%22 fill=%22%236e675f%22 font-size=%2220%22 font-family=%22Georgia,serif%22%3EYour photo%3C/text%3E%3C/svg%3E'"
+              />
+              <div class="caption">Replace with your photograph and a caption.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="volunteer" class="reveal">
+        <div class="section-header">
+          <h2><span class="sec-num">05</span>Service</h2>
+        </div>
+        <p class="replace-note">Sample entry. If you have no service record, delete this whole section. Do not leave an empty hour count.</p>
+
+        <div class="card">
+          <div class="item-row">
+            <div class="item-title">Elementary science camp</div>
+            <div class="item-date">Summer 2024</div>
+          </div>
+          <div class="item-subtitle">Physics demonstrations</div>
+          <p class="item-desc">
+            I ran short experiments for younger students, with light and magnets, so they saw what happened before I told them the name of the law.
+          </p>
+        </div>
+      </section>
+
+      <footer>
+        <!-- REPLACE: name, GitHub, email -->
+        <p>Your Name · Physics Portfolio · 2026</p>
+        <p>
+          <a href="https://github.com/your-github-username">GitHub</a>
+          ·
+          <a href="mailto:your_email@gmail.com">Email</a>
         </p>
-    </footer>
+      </footer>
+    </main>
+    </div>
+    <script>
+      (function () {
+        var motion = document.documentElement.classList.contains("motion");
+        var progress = document.getElementById("progress");
+        var rail = document.getElementById("rail");
+        var panel = document.getElementById("case-panel");
+        var live = document.getElementById("case-live");
 
-</div>
+        function followPointer(el, xName, yName) {
+          if (!motion || !el) return;
+          if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+          var pending = false;
+          var px = 0.5;
+          var py = 0.5;
+          el.addEventListener("pointermove", function (event) {
+            var rect = el.getBoundingClientRect();
+            if (!rect.width || !rect.height) return;
+            px = (event.clientX - rect.left) / rect.width;
+            py = (event.clientY - rect.top) / rect.height;
+            if (pending) return;
+            pending = true;
+            window.requestAnimationFrame(function () {
+              pending = false;
+              el.style.setProperty(xName, String(px));
+              el.style.setProperty(yName, String(py));
+            });
+          });
+          el.addEventListener("pointerleave", function () {
+            el.style.setProperty(xName, "0.5");
+            el.style.setProperty(yName, "0.5");
+          });
+        }
 
-</body>
+        followPointer(document.getElementById("cover"), "--mx", "--my");
+        followPointer(document.getElementById("about"), "--hx", "--hy");
+
+        var cases = {
+          zone: {
+            speed: "354.2 km/h",
+            dist: "399.1 m",
+            term: "370.3 km/h",
+            blurb:
+              "After 150 m, Cd drops to 0.75. The car finishes the straight at 354.2 km/h and reaches 320 km/h at 399.1 m. The terminal speed, 370.3 km/h, is not reached on this straight.",
+          },
+          closed: {
+            speed: "338.8 km/h",
+            dist: "470.9 m",
+            term: "348.5 km/h",
+            blurb:
+              "Cd stays at 0.90. The car finishes the straight at 338.8 km/h and reaches 320 km/h at 470.9 m. The terminal speed, 348.5 km/h, is not reached on this straight.",
+          },
+        };
+
+        function onScroll() {
+          var doc = document.documentElement;
+          var max = doc.scrollHeight - doc.clientHeight;
+          progress.style.transform = "scaleX(" + (max > 0 ? doc.scrollTop / max : 0) + ")";
+        }
+        onScroll();
+        document.addEventListener("scroll", onScroll, { passive: true });
+
+        var pageStarted = false;
+        function startPage() {
+          if (pageStarted) return;
+          pageStarted = true;
+
+          var links = Array.prototype.slice.call(document.querySelectorAll(".nav-links a"));
+          var spyTargets = links
+            .map(function (link) {
+              return { link: link, el: document.querySelector(link.getAttribute("href")) };
+            })
+            .filter(function (item) {
+              return item.el;
+            });
+
+          if ("IntersectionObserver" in window) {
+            var spy = new IntersectionObserver(
+              function (entries) {
+                entries.forEach(function (entry) {
+                  if (!entry.isIntersecting) return;
+                  spyTargets.forEach(function (item) {
+                    item.link.classList.toggle("is-current", item.el === entry.target);
+                  });
+                });
+              },
+              { rootMargin: "-30% 0px -55% 0px", threshold: 0 }
+            );
+            spyTargets.forEach(function (item) {
+              spy.observe(item.el);
+            });
+
+            var revealIO = new IntersectionObserver(
+              function (entries) {
+                entries.forEach(function (entry) {
+                  if (!entry.isIntersecting) return;
+                  entry.target.classList.add("in");
+                  revealIO.unobserve(entry.target);
+                });
+              },
+              { threshold: 0, rootMargin: "0px 0px -8% 0px" }
+            );
+            document.querySelectorAll(".reveal").forEach(function (el) {
+              if (motion) revealIO.observe(el);
+              else el.classList.add("in");
+            });
+
+            if (motion) {
+              var railIO = new IntersectionObserver(
+                function (entries) {
+                  entries.forEach(function (entry) {
+                    if (!entry.isIntersecting) return;
+                    rail.classList.add("is-set");
+                    railIO.unobserve(rail);
+                  });
+                },
+                { threshold: 0.5 }
+              );
+              railIO.observe(rail);
+            }
+          } else {
+            document.querySelectorAll(".reveal").forEach(function (el) {
+              el.classList.add("in");
+            });
+            rail.classList.add("is-set");
+          }
+        }
+
+        var cover = document.getElementById("cover");
+        var root = document.documentElement;
+        var opened = false;
+
+        function finishCover() {
+          if (opened) return;
+          opened = true;
+          root.classList.remove("has-cover");
+          root.classList.remove("is-leaving");
+          cover.hidden = true;
+          var site = document.getElementById("site");
+          if (site) site.style.animation = "none";
+          startPage();
+          var main = document.querySelector("main");
+          if (main) {
+            main.setAttribute("tabindex", "-1");
+            main.focus({ preventScroll: true });
+          }
+        }
+
+        function openSite() {
+          if (opened || root.classList.contains("is-leaving")) return;
+          if (!motion) {
+            root.classList.add("is-open");
+            finishCover();
+            return;
+          }
+          root.classList.add("is-leaving");
+          root.classList.add("is-open");
+          cover.addEventListener("animationend", function (event) {
+            if (event.target !== cover) return;
+            finishCover();
+          });
+          window.setTimeout(finishCover, 1000);
+        }
+
+        if (root.classList.contains("has-cover")) {
+          document.getElementById("enter").addEventListener("click", openSite);
+        } else {
+          cover.hidden = true;
+          startPage();
+        }
+
+        var swapToken = 0;
+        function applyCase(key) {
+          var data = cases[key];
+          live.querySelector("[data-field='speed']").textContent = data.speed;
+          live.querySelector("[data-field='dist']").textContent = data.dist;
+          live.querySelector("[data-field='term']").textContent = data.term;
+          live.querySelector("[data-field='blurb']").textContent = data.blurb;
+        }
+
+        function selectCase(key) {
+          panel.setAttribute("data-case", key);
+          panel.querySelectorAll("[role='tab']").forEach(function (tab) {
+            tab.setAttribute("aria-selected", tab.getAttribute("data-case") === key ? "true" : "false");
+          });
+          var token = ++swapToken;
+          if (!motion) {
+            applyCase(key);
+            return;
+          }
+          live.classList.add("is-swapping");
+          window.setTimeout(function () {
+            if (token !== swapToken) return;
+            applyCase(key);
+            live.classList.remove("is-swapping");
+          }, 140);
+        }
+
+        panel.querySelectorAll("[role='tab']").forEach(function (tab) {
+          tab.addEventListener("click", function () {
+            selectCase(tab.getAttribute("data-case"));
+          });
+        });
+      })();
+    </script>
+  </body>
 </html>
