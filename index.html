@@ -27,6 +27,8 @@
       每一張從哪裡來：
       - figures/interactive_telemetry_compare.html  第五堂。網站 figures/ 裡應該已經有。沒有就從第五堂的 figures/ 再複製，檔名不要改。
       - figures/interactive_track_gforce.html       第五堂，同上。
+      - figures/interactive_telemetry_monza.html    蒙札動能比較。檔名不要改。
+      - figures/interactive_track_gforce_monza.html 蒙札總 G 力熱力圖，同上。
       - figures/vt_drs.png                          第八堂 figures/。本堂複製到網站的 figures/，檔名全小寫，不要改。
       - figures/vs_drs.png                          第八堂，同上。
       - figures/st_overtake.png                     第八堂，同上。
@@ -477,6 +479,10 @@
         background: var(--ink);
         border-color: var(--ink);
         color: var(--paper);
+      }
+
+      .track-tabs {
+        margin: 0 0 18px;
       }
 
       .rail-note,
@@ -1277,78 +1283,166 @@
           <h2><span class="sec-num">01 — Formula 1 - Kinematics</span>Braking & Energy</h2>
         </div>
 
-        <div class="card">
-          <div class="item-row">
-            <div class="item-title">
-              2023 Monaco Q3 Comparison: Max Verstappen and Charles Leclerc
-            </div>
-            <div class="item-date">2026.08</div>
+        <div class="card" id="track-panel" data-track="monaco">
+          <div class="case-tabs track-tabs" role="tablist" aria-label="Choose a circuit">
+            <button type="button" role="tab" id="tab-monaco" aria-selected="true" aria-controls="track-monaco" data-track="monaco">
+              Monaco
+            </button>
+            <button type="button" role="tab" id="tab-monza" aria-selected="false" aria-controls="track-monza" data-track="monza">
+              Monza
+            </button>
           </div>
-          <div class="item-subtitle">
-            From public qualifying data
-          </div>
-          <p class="prose">
-            I compared data of Max Verstappen and Charles Leclerc during their critical qualifying lap at the 2023 Monaco Grand Prix Qualifying. The data are extracted from telemetry from FastF1, used 0.1 seconds per interval.
+          <p class="rail-note">
+            Both circuits use the same mass, 798 kg, and the same five-point smoothing on acceleration. The button changes the lap.
           </p>
-          <p class="prose">
-            Using telemetry data from the 2023 Monaco Grand Prix Qualifying, the project compares the performance of Max Verstappen and Charles Leclerc during their critical qualifying lap. I translated the speed into different dynamic physical metrics, showing how kinetic energy is dissipated across the circuit. I also calculated the total G-force distribution, highlighting how hard the car decelerates and corners at specific points around the circuit.</p>
-          <div class="metrics-grid">
-            <div class="metric-box">
-              <div class="metric-val">2.2 MW</div>
-              <div class="metric-lbl">Peak braking power into Turn 1</div>
+
+          <div id="track-monaco" data-track-pane="monaco">
+            <div class="item-row">
+              <div class="item-title">
+                2023 Monaco Q3 Comparison: Max Verstappen and Charles Leclerc
+              </div>
+              <div class="item-date">2026.08</div>
             </div>
-            <div class="metric-box">
-              <div class="metric-val">−3.5 g</div>
-              <div class="metric-lbl">Peak longitudinal deceleration</div>
+            <div class="item-subtitle">
+              From public qualifying data
             </div>
-            <div class="metric-box">
-              <div class="metric-val">3.2 g+</div>
-              <div class="metric-lbl">Peak lateral acceleration</div>
+            <p class="prose">
+              I compared data of Max Verstappen and Charles Leclerc during their critical qualifying lap at the 2023 Monaco Grand Prix Qualifying. The data are extracted from telemetry from FastF1, used 0.1 seconds per interval.
+            </p>
+            <p class="prose">
+              Using telemetry data from the 2023 Monaco Grand Prix Qualifying, the project compares the performance of Max Verstappen and Charles Leclerc during their critical qualifying lap. I translated the speed into different dynamic physical metrics, showing how kinetic energy is dissipated across the circuit. I also calculated the total G-force distribution, highlighting how hard the car decelerates and corners at specific points around the circuit.</p>
+            <div class="metrics-grid">
+              <div class="metric-box">
+                <div class="metric-val">2.2 MW</div>
+                <div class="metric-lbl">Peak braking power into Turn 1</div>
+              </div>
+              <div class="metric-box">
+                <div class="metric-val">−3.5 g</div>
+                <div class="metric-lbl">Peak longitudinal deceleration</div>
+              </div>
+              <div class="metric-box">
+                <div class="metric-val">3.2 g+</div>
+                <div class="metric-lbl">Peak lateral acceleration</div>
+              </div>
+              <div class="metric-box">
+                <div class="metric-val">798 kg</div>
+                <div class="metric-lbl">Mass used in P = mav</div>
+              </div>
             </div>
-            <div class="metric-box">
-              <div class="metric-val">798 kg</div>
-              <div class="metric-lbl">Mass used in P = mav</div>
+
+            <figure class="plot">
+              <figcaption>
+                <span>Fig. 1</span>Speed and kinetic energy along the lap. Drag a box over the first braking zone, about 80–200 m, to look closer. Double-click to zoom back out.
+              </figcaption>
+              <!-- 第五堂的圖：figures/interactive_telemetry_compare.html。檔名不要改。 -->
+              <div class="chart-frame">
+                <iframe
+                  title="Speed and kinetic energy along the Monaco lap"
+                  src="figures/interactive_telemetry_compare.html"
+                ></iframe>
+              </div>
+            </figure>
+
+            <div class="insight-callout">
+              <h3>What I found</h3>
+              <p>
+                (Power & Speed) Cars approach Turn 1 at roughly 290 km/h, with initial braking dropping deceleration to about -3.5 g, producing a peak power of nearly 2.2 MW. (Braking Strategy ("Who brakes later")) While both cars share a similar peak deceleration, their braking strategies differ slightly. If heavy braking means -2.5 g or below, Leclerc stays on the brakes for about 5–8 meters longer. Conversely, Verstappen slows down more gradually, allowing him to get back on the throttle sooner based on analysis rather than just touch-pedal timing.
+              </p>
+            </div>
+
+            <figure class="plot">
+              <figcaption>
+                <span>Fig. 2</span>How hard the car is turning, drawn on the Monaco circuit. Point at a spot to read the speed and the sideways acceleration.
+              </figcaption>
+              <!-- 第五堂的圖：figures/interactive_track_gforce.html。檔名不要改。 -->
+              <div class="chart-frame">
+                <iframe
+                  title="Total g along the Monaco circuit"
+                  src="figures/interactive_track_gforce.html"
+                ></iframe>
+              </div>
+            </figure>
+
+            <div class="insight-callout">
+              <h3>What I found</h3>
+              <p>
+                (Spatial G-Force Mapping) A geometric layout of the Circuit de Monaco mapped with telemetry kinematics data from Max Verstappen's 2023 pole lap. (Color-Coded Acceleration Scale) Uses a color gradient ranging from 0 g (dark purple) to 4 g (bright yellow) to denote Total G-Force (g). (Circuit Dynamics) It highlights where maximum cornering and braking forces occur on the tight, twisting street sections (represented by brighter yellow and green segments), contrasting with straight or low-load sections (darker purple segments).
+              </p>
             </div>
           </div>
 
-          <figure class="plot">
-            <figcaption>
-              <span>Fig. 1</span>Speed and kinetic energy along the lap. Drag a box over the first braking zone, about 80–200 m, to look closer. Double-click to zoom back out.
-            </figcaption>
-            <!-- 第五堂的圖：figures/interactive_telemetry_compare.html。檔名不要改。 -->
-            <div class="chart-frame">
-              <iframe
-                title="Speed and kinetic energy along the lap"
-                src="figures/interactive_telemetry_compare.html"
-              ></iframe>
+          <div id="track-monza" data-track-pane="monza" hidden>
+            <div class="item-row">
+              <div class="item-title">
+                2023 Monza Q3 Comparison: Max Verstappen and Carlos Sainz
+              </div>
+              <div class="item-date">2026.10</div>
             </div>
-          </figure>
-
-          <div class="insight-callout">
-            <h3>What I found</h3>
-            <p>
-              (Power & Speed) Cars approach Turn 1 at roughly 290 km/h, with initial braking dropping deceleration to about -3.5 g, producing a peak power of nearly 2.2 MW. (Braking Strategy ("Who brakes later")) While both cars share a similar peak deceleration, their braking strategies differ slightly. If heavy braking means -2.5 g or below, Leclerc stays on the brakes for about 5–8 meters longer. Conversely, Verstappen slows down more gradually, allowing him to get back on the throttle sooner based on analysis rather than just touch-pedal timing.
-            </p>
-          </div>
-
-          <figure class="plot">
-            <figcaption>
-              <span>Fig. 2</span>How hard the car is turning, drawn on the Monaco circuit. Point at a spot to read the speed and the sideways acceleration.
-            </figcaption>
-            <!-- 第五堂的圖：figures/interactive_track_gforce.html。檔名不要改。 -->
-            <div class="chart-frame">
-              <iframe
-                title="Lateral acceleration along the Monaco circuit"
-                src="figures/interactive_track_gforce.html"
-              ></iframe>
+            <div class="item-subtitle">
+              From public qualifying data
             </div>
-          </figure>
-
-          <div class="insight-callout">
-            <h3>What I found</h3>
-            <p>
-              (Spatial G-Force Mapping) A geometric layout of the Circuit de Monaco mapped with telemetry kinematics data from Max Verstappen's 2023 pole lap. (Color-Coded Acceleration Scale) Uses a color gradient ranging from 0 g (dark purple) to 4 g (bright yellow) to denote Total G-Force (g). (Circuit Dynamics) It highlights where maximum cornering and braking forces occur on the tight, twisting street sections (represented by brighter yellow and green segments), contrasting with straight or low-load sections (darker purple segments).
+            <p class="prose">
+              I compared Max Verstappen and Carlos Sainz on their fastest laps in 2023 Monza qualifying. The samples come from FastF1 telemetry, about 0.1 seconds apart. Sainz took pole in 1:20.294. Verstappen’s lap was 1:20.307.
             </p>
+            <p class="prose">
+              Speed becomes kinetic energy with the same 798 kg used at Monaco, in E<sub>k</sub> = ½mv². Braking power is P = mav. The acceleration is a five-point rolling mean, so one noisy sample does not set the peak. The map is total g, from the longitudinal and lateral accelerations together.
+            </p>
+            <div class="metrics-grid">
+              <div class="metric-box">
+                <div class="metric-val">2.7 MW</div>
+                <div class="metric-lbl">Verstappen’s peak braking power into Turn 1</div>
+              </div>
+              <div class="metric-box">
+                <div class="metric-val">−4.8 g</div>
+                <div class="metric-lbl">Verstappen’s peak longitudinal deceleration</div>
+              </div>
+              <div class="metric-box">
+                <div class="metric-val">4.7 g</div>
+                <div class="metric-lbl">Verstappen’s peak lateral acceleration, at the Parabolica</div>
+              </div>
+              <div class="metric-box">
+                <div class="metric-val">798 kg</div>
+                <div class="metric-lbl">Mass used in E<sub>k</sub> = ½mv² and P = mav</div>
+              </div>
+            </div>
+
+            <figure class="plot">
+              <figcaption>
+                <span>Fig. 1</span>Speed and kinetic energy along the Monza lap. The shaded band is the Turn 1 stop, about 750–920 m. Drag a box over it to look closer. Double-click to zoom back out.
+              </figcaption>
+              <div class="chart-frame">
+                <iframe
+                  title="Speed and kinetic energy along the Monza lap"
+                  data-src="figures/interactive_telemetry_monza.html"
+                ></iframe>
+              </div>
+            </figure>
+
+            <div class="insight-callout">
+              <h3>What I found</h3>
+              <p>
+                Sainz reaches 350 km/h on the run to Turn 1, the Variante del Rettifilo. Verstappen’s peak on that straight is 343 km/h, so Sainz arrives with more kinetic energy, about 3770 kJ against about 3620 kJ. Counting a stop as −2.5 g or below, Sainz crosses that line at 782 m while still at 344 km/h. Verstappen crosses it at 791 m, already down to 320 km/h. Sainz’s stop is the sharper one: about −5.6 g and 3.4 MW, against Verstappen’s −4.8 g and 2.7 MW. Sainz stays under −2.5 g for about 49 m. Verstappen stays under it for about 62 m.
+              </p>
+            </div>
+
+            <figure class="plot">
+              <figcaption>
+                <span>Fig. 2</span>How hard the car is braking and turning, drawn on the Monza circuit from Verstappen’s fastest Q3 lap. Point at a spot to read the speed and the total g. The scale runs from 0 g to 5 g.
+              </figcaption>
+              <div class="chart-frame">
+                <iframe
+                  title="Total g along the Monza circuit"
+                  data-src="figures/interactive_track_gforce_monza.html"
+                ></iframe>
+              </div>
+            </figure>
+
+            <div class="insight-callout">
+              <h3>What I found</h3>
+              <p>
+                The colour is total g, from 0 g in dark purple to 5 g in yellow. The brightest point is the stop into Turn 1, almost entirely longitudinal, about 4.8 g. The other bright arc is the Parabolica, near 5150 m, where the car is still at about 215 km/h and the sideways acceleration reaches about 4.7 g. The long straights stay dark. Monaco’s bright segments are the slow street corners. Monza’s bright segments are this stop and the Parabolica.
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -1838,6 +1932,32 @@
             selectCase(tab.getAttribute("data-case"));
           });
         });
+
+        var trackPanel = document.getElementById("track-panel");
+        function selectTrack(key) {
+          if (!trackPanel) return;
+          trackPanel.setAttribute("data-track", key);
+          trackPanel.querySelectorAll("[data-track-pane]").forEach(function (pane) {
+            pane.hidden = pane.getAttribute("data-track-pane") !== key;
+          });
+          trackPanel.querySelectorAll("[role='tab']").forEach(function (tab) {
+            tab.setAttribute("aria-selected", tab.getAttribute("data-track") === key ? "true" : "false");
+          });
+          var pane = trackPanel.querySelector('[data-track-pane="' + key + '"]');
+          if (!pane) return;
+          pane.querySelectorAll("iframe[data-src]").forEach(function (frame) {
+            if (!frame.getAttribute("src")) {
+              frame.setAttribute("src", frame.getAttribute("data-src"));
+            }
+          });
+        }
+        if (trackPanel) {
+          trackPanel.querySelectorAll("[role='tab']").forEach(function (tab) {
+            tab.addEventListener("click", function () {
+              selectTrack(tab.getAttribute("data-track"));
+            });
+          });
+        }
       })();
     </script>
   </body>
