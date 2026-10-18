@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Your Name | Physics Portfolio</title>
+    <title>Tzu-Chien Yao 姚子謙 | Portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -294,6 +294,24 @@
         text-transform: uppercase;
         color: var(--accent);
         margin: 0 0 6px;
+      }
+
+      a.sec-num {
+        width: fit-content;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      a.sec-num:hover,
+      a.sec-num:focus-visible {
+        color: var(--ink);
+        text-decoration: underline;
+        text-underline-offset: 0.25em;
+      }
+
+      a.sec-num:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 3px;
       }
 
       .section-tag {
@@ -1189,19 +1207,18 @@
       <div class="cover-card">
         <div class="cover-split">
           <div class="cover-copy">
-            <p class="cover-kicker">Physics Portfolio</p>
-            <p class="cover-name">Your Name</p>
+            <p class="cover-kicker">Portfolio</p>
+            <p class="cover-name">Tzu-Chien Yao</p>
             <div class="cover-rule" aria-hidden="true"></div>
             <p class="cover-line">
-              I like physics, and I follow Formula 1.<br />
-              I want to see a law turn into a number.
+              I love physics and enjoy exploring all kinds of physics behind sports. I like turning laws from different areas into numbers.
             </p>
             <button type="button" class="enter" id="enter">Enter <span aria-hidden="true">→</span></button>
           </div>
           <div class="cover-frame">
             <img
               class="cover-photo"
-              src="images/profile.jpg"
+              src="images/Image.jpg"
               alt="Portrait"
               onerror="this.onerror=null;this.alt='Portrait not added yet';this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22280%22 height=%22340%22%3E%3Crect width=%22100%25%22 height=%22100%25%22 fill=%22%23e4dcd0%22/%3E%3Ctext x=%2250%25%22 y=%2252%25%22 text-anchor=%22middle%22 fill=%22%236e675f%22 font-size=%2216%22 font-family=%22Georgia,serif%22%3EYour photo%3C/text%3E%3C/svg%3E'"
             />
@@ -1216,7 +1233,7 @@
     <header class="topbar">
       <div class="topbar-inner">
         <!-- REPLACE: name in the navigation -->
-        <div class="logo">Your Name</div>
+        <div class="logo">Tzu-Chien Yao</div>
         <nav class="nav-links" aria-label="Sections">
           <a href="#about">About</a>
           <a href="#research">Project 1</a>
@@ -1234,49 +1251,47 @@
         <div class="avatar-frame">
           <img
             class="avatar"
-            src="images/profile.jpg"
+            src="images/Image.jpg"
             alt="Portrait"
             onerror="this.onerror=null;this.alt='Portrait not added yet';this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22128%22 height=%22128%22%3E%3Crect width=%22100%25%22 height=%22100%25%22 fill=%22%23e4dcd0%22/%3E%3Ctext x=%2250%25%22 y=%2254%25%22 text-anchor=%22middle%22 fill=%22%236e675f%22 font-size=%2213%22 font-family=%22Georgia,serif%22%3EYour photo%3C/text%3E%3C/svg%3E'"
           />
         </div>
         <div>
           <!-- REPLACE: name and this introduction. Write why you like physics. Leave the two projects below as they are. -->
-          <h1>Your Name</h1>
-          <div class="role">Last year of high school · Physics and Formula 1</div>
+          <h1>Tzu-Chien Yao</h1>
+          <div class="role">Grade 12 student</div>
           <p>
-            I am in my last year of high school. Physics is the subject I care about most, and Formula 1 is the racing I follow. I like both for the same reason: something happens, and I can calculate it. I want to study physics or mechanical engineering.
+            I am in my last year of high school. Physics is the subject I enjoy the most, and sports are the places where I can apply physics. I enjoy it for the reason of something happens, and I can delve into it.
           </p>
           <div class="tags">
             <span class="tag">Physics</span>
+            <span class="tag">Mechanics</span>
             <span class="tag">Formula 1</span>
-            <span class="tag">Classical mechanics</span>
-            <span class="tag">Mechanical engineering</span>
+            <span class="tag">Tennis</span>
           </div>
         </div>
       </section>
 
       <section id="research" class="reveal">
         <div class="section-header">
-          <h2><span class="sec-num">01 — Kinematics</span>Telemetry, braking, and energy</h2>
+          <h2><span class="sec-num">01 — Formula 1 - Kinematics</span>Braking & Energy</h2>
         </div>
 
         <div class="card">
           <div class="item-row">
             <div class="item-title">
-              2023 Monaco qualifying: Verstappen and Leclerc into Turn 1
+              2023 Monaco Q3 Comparison: Max Verstappen and Charles Leclerc
             </div>
             <div class="item-date">2026.08</div>
           </div>
           <div class="item-subtitle">
-            One braking zone, from public qualifying data
+            From public qualifying data
           </div>
           <p class="prose">
-            I compared Max Verstappen and Charles Leclerc going into Turn 1 at the 2023 Monaco Grand Prix. The data are qualifying telemetry from FastF1, recorded 10 times a second.
+            I compared data of Max Verstappen and Charles Leclerc during their critical qualifying lap at the 2023 Monaco Grand Prix Qualifying. The data are extracted from telemetry from FastF1, used 0.1 seconds per interval.
           </p>
           <p class="prose">
-            I used the speed trace to estimate how hard each car slowed down and how hard it turned. Slowing down is the change in speed divided by the change in time. Turning is a<sub>n</sub> = v² / r. The power at one moment is P = m a v. The mass is 798 kg, the FIA minimum, not a weigh-in of these two cars.
-          </p>
-
+            Using telemetry data from the 2023 Monaco Grand Prix Qualifying, the project compares the performance of Max Verstappen and Charles Leclerc during their critical qualifying lap. I translated the speed into different dynamic physical metrics, showing how kinetic energy is dissipated across the circuit. I also calculated the total G-force distribution, highlighting how hard the car decelerates and corners at specific points around the circuit.</p>
           <div class="metrics-grid">
             <div class="metric-box">
               <div class="metric-val">2.2 MW</div>
@@ -1309,6 +1324,13 @@
             </div>
           </figure>
 
+          <div class="insight-callout">
+            <h3>What I found</h3>
+            <p>
+              (Power & Speed) Cars approach Turn 1 at roughly 290 km/h, with initial braking dropping deceleration to about -3.5 g, producing a peak power of nearly 2.2 MW. (Braking Strategy ("Who brakes later")) While both cars share a similar peak deceleration, their braking strategies differ slightly. If heavy braking means -2.5 g or below, Leclerc stays on the brakes for about 5–8 meters longer. Conversely, Verstappen slows down more gradually, allowing him to get back on the throttle sooner based on analysis rather than just touch-pedal timing.
+            </p>
+          </div>
+
           <figure class="plot">
             <figcaption>
               <span>Fig. 2</span>How hard the car is turning, drawn on the Monaco circuit. Point at a spot to read the speed and the sideways acceleration.
@@ -1325,10 +1347,7 @@
           <div class="insight-callout">
             <h3>What I found</h3>
             <p>
-              <strong>Power depends on speed.</strong>
-              The cars arrive at about 290 km/h. In the first ~0.3 s of braking, the deceleration reaches about −3.5 g. With m = 798 kg, P = m a v gives a peak near 2.2 MW. The same deceleration takes energy away faster when the car is going faster.<br />
-              <strong>“Who brakes later” depends on the cutoff.</strong>
-              If braking starts at −1.5 g or below, the two cars differ by only about 0.2–0.5 m. If heavy braking means −2.5 g or below, Leclerc is about 5–8 m later. Verstappen slows down more gradually, and he gets back on the throttle sooner. I compared the whole trace, not who touches the pedal first.
+              (Spatial G-Force Mapping) A geometric layout of the Circuit de Monaco mapped with telemetry kinematics data from Max Verstappen's 2023 pole lap. (Color-Coded Acceleration Scale) Uses a color gradient ranging from 0 g (dark purple) to 4 g (bright yellow) to denote Total G-Force (g). (Circuit Dynamics) It highlights where maximum cornering and braking forces occur on the tight, twisting street sections (represented by brighter yellow and green segments), contrasting with straight or low-load sections (darker purple segments).
             </p>
           </div>
         </div>
@@ -1336,7 +1355,7 @@
 
       <section id="research-drs" class="reveal">
         <div class="section-header">
-          <h2><span class="sec-num">02 — Aerodynamics</span>Drag, DRS, and the wake</h2>
+          <h2><span class="sec-num">02 — Formula 1 - Aerodynamics</span>Drag & DRS & Slipstream</h2>
         </div>
 
         <div class="card">
@@ -1345,7 +1364,7 @@
             <div class="item-date">2026.09</div>
           </div>
           <div class="item-subtitle">
-            DRS changes the drag coefficient. The wake changes the air around the car behind.
+            DRS changes the drag coefficient. Slipstream changes the air around the car behind.
           </div>
           <p class="prose">
             I asked what one change does on an 800 m straight. Opening DRS lowers the drag coefficient after 150 m. The wake is a different change: it lowers the air density felt by the car behind, and only while the gap is under 35 m. I integrated Newton’s second law once, with Euler’s method and a time step of 0.01 s. The buttons show those finished results.
@@ -1608,7 +1627,7 @@
 
       <footer>
         <!-- REPLACE: name, GitHub, email -->
-        <p>Your Name · Physics Portfolio · 2026</p>
+        <p>Tzu-Chien Yao · Portfolio · 2026</p>
         <p>
           <a href="https://github.com/your-github-username">GitHub</a>
           ·
